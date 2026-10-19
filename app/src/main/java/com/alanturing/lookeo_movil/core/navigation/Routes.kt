@@ -19,5 +19,4 @@ sealed class Routes(val route: String){
     class DetailOutfit: Routes("detailOutfitScreen/{outfitId}"){
         fun createRoute(outfitId: String) = "detailOutfitScreen/$outfitId"
     }
-
 }
