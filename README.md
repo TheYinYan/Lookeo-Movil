@@ -64,7 +64,6 @@ Este repositorio contiene **solo el frontend móvil**. El backend (API REST) est
 | **Inicio** | Conjunto del día, descripción, botón "Otra combinación". |
 | **Crear prenda** | Subir foto, tipo, color, temporada, ocasión, notas. |
 | **Ropero** | Listado de prendas con filtros. |
-| **Probador IA** | Subir foto del usuario, seleccionar prendas, generar imagen. |
 | **Perfil** | Foto, nombre, ubicación, menú de opciones. |
 | **Outfits** | Conjuntos guardados. |
 
