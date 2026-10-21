@@ -31,12 +31,8 @@ sealed class Routes(val route: String){
     object Favorites: Routes("favoritesScreen")
 
     @Serializable
-    class DetailItem: Routes("detailItemScreen/{itemId}"){
-        fun createRoute(itemId: String) = "detailItemScreen/$itemId"
-    }
+    class DetailItem(itemId: String): Routes("ItemDetailScreen/${itemId}")
 
     @Serializable
-    class DetailOutfit: Routes("detailOutfitScreen/{outfitId}"){
-        fun createRoute(outfitId: String) = "detailOutfitScreen/$outfitId"
-    }
+    class DetailOutfit(outfitId : String): Routes("OutfitDetailScreen/${outfitId}")
 }
