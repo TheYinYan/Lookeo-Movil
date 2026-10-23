@@ -11,15 +11,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeScreen(
-    onNavigateToWardrobe: () -> Unit,
+    onNavigateToProfile: () -> Unit,
 ) {
     Column {
         Text("¡Bienvenido a Lookeo!")
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onNavigateToWardrobe) {
-            Text("Ir a mi Armario")
+        Button(onClick = onNavigateToProfile) {
+            Text("Ir a mi cuenta")
         }
     }
 }

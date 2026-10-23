@@ -5,7 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.alanturing.lookeo_movil.features.auth.ui.LoginScreen
+import com.alanturing.lookeo_movil.features.auth.ui.RegisterScreen
 import com.alanturing.lookeo_movil.features.home.ui.HomeScreen
+import com.alanturing.lookeo_movil.features.profile.ui.ProfileScreen
 import com.alanturing.lookeo_movil.features.wardrobe.ui.WardrobeScreen
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -13,14 +16,20 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Home.route,
+        startDestination = Routes.Login.route,
         modifier = modifier
     ) {
-        composable(Routes.Home.route){
-            HomeScreen({ navController.navigate(Routes.Wardrobe.route)})
+        composable(Routes.Login.route){
+            LoginScreen({ navController.navigate(Routes.Home.route)})
         }
-        composable(Routes.Wardrobe.route) {
-            WardrobeScreen({ navController.navigate(Routes.Home.route)})
+        composable(Routes.Register.route) {
+            RegisterScreen({ navController.navigate(Routes.Login.route)})
+        }
+        composable(Routes.Home.route){
+            HomeScreen({ navController.navigate(Routes.Profile.route)})
+        }
+        composable(Routes.Profile.route) {
+            ProfileScreen({ navController.navigate(Routes.Home.route)})
         }
     }
 }
