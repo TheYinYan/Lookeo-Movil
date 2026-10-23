@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alanturing.lookeo_movil.features.home.ui.HomeScreen
-
+import com.alanturing.lookeo_movil.features.wardrobe.ui.WardrobeScreen
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
@@ -17,7 +17,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         composable(Routes.Home.route){
-            HomeScreen()
+            HomeScreen({ navController.navigate(Routes.Wardrobe.route)})
+        }
+        composable(Routes.Wardrobe.route) {
+            WardrobeScreen({ navController.navigate(Routes.Home.route)})
         }
     }
 }
