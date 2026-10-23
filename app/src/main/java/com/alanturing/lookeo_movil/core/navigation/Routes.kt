@@ -4,39 +4,35 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Routes(val route: String){
     @Serializable
-    object Home: Routes("homeScreen")
+    object Home: Routes("HomeScreen")
 
     @Serializable
-    object Login: Routes("loginScreen")
+    object Login: Routes("LoginScreen")
 
     @Serializable
-    object Register: Routes("registerScreen")
+    object Register: Routes("RegisterScreen")
 
     @Serializable
-    object Wardrobe: Routes("wardrobeScreen")
+    object Wardrobe: Routes("WardrobeScreen")
 
     @Serializable
-    object Outfits: Routes("outfitsScreen")
+    object Outfits: Routes("OutfitsScreen")
 
     @Serializable
-    object Profile: Routes("profileScreen")
+    object Profile: Routes("ProfileScreen")
 
     @Serializable
-    object Setting: Routes("settingScreen")
+    object Setting: Routes("SettingScreen")
 
     @Serializable
-    object NewItem: Routes("newItemScreen")
+    object NewItem: Routes("NewItemScreen")
 
     @Serializable
-    object Favorites: Routes("favoritesScreen")
+    object Favorites: Routes("FavoritesScreen")
 
     @Serializable
-    class DetailItem: Routes("detailItemScreen/{itemId}"){
-        fun createRoute(itemId: String) = "detailItemScreen/$itemId"
-    }
+    class DetailItem(itemId: String): Routes("ItemDetailScreen/${itemId}")
 
     @Serializable
-    class DetailOutfit: Routes("detailOutfitScreen/{outfitId}"){
-        fun createRoute(outfitId: String) = "detailOutfitScreen/$outfitId"
-    }
+    class DetailOutfit(outfitId : String): Routes("OutfitDetailScreen/${outfitId}")
 }
