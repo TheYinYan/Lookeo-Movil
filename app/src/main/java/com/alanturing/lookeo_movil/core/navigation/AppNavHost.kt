@@ -9,27 +9,34 @@ import com.alanturing.lookeo_movil.features.auth.ui.LoginScreen
 import com.alanturing.lookeo_movil.features.auth.ui.RegisterScreen
 import com.alanturing.lookeo_movil.features.home.ui.HomeScreen
 import com.alanturing.lookeo_movil.features.profile.ui.ProfileScreen
-import com.alanturing.lookeo_movil.features.wardrobe.ui.WardrobeScreen
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Login.route,
+        startDestination = Routes.Register.route,
         modifier = modifier
     ) {
-        composable(Routes.Login.route){
-            LoginScreen({ navController.navigate(Routes.Home.route)})
-        }
         composable(Routes.Register.route) {
-            RegisterScreen({ navController.navigate(Routes.Login.route)})
+            RegisterScreen {
+                navController.navigate(Routes.Login.route)
+            }
+        }
+        composable(Routes.Login.route){
+            LoginScreen {
+                navController.navigate(Routes.Home.route)
+            }
         }
         composable(Routes.Home.route){
-            HomeScreen({ navController.navigate(Routes.Profile.route)})
+            HomeScreen {
+                navController.navigate(Routes.Profile.route)
+            }
         }
         composable(Routes.Profile.route) {
-            ProfileScreen({ navController.navigate(Routes.Home.route)})
+            ProfileScreen {
+                navController.navigate(Routes.Home.route)
+            }
         }
     }
 }
