@@ -12,6 +12,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WardrobeScreen(
     onNavigateToHome: () -> Unit,
+    onNavigateToOutfits: () -> Unit,
+    onNavigateToFavorites: () -> Unit,
+    onNavigateToProfile: () -> Unit
 ) {
     Column {
         Text("¡Bienvenido a Armario!")
@@ -20,6 +23,24 @@ fun WardrobeScreen(
 
         Button(onClick = onNavigateToHome) {
             Text("Ir a Home")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToOutfits) {
+            Text("Ir a mis outfits")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToFavorites) {
+            Text("Ir a mis favoritos")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToProfile) {
+            Text("Ir a mi cuenta")
         }
     }
 }

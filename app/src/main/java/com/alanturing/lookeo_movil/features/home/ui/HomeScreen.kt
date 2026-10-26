@@ -12,6 +12,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen(
     onNavigateToProfile: () -> Unit,
+    onNavigateToWardrobe: () -> Unit,
+    onNavigateToOutfits: () -> Unit,
+    onNavigateToFavorites: () -> Unit
 ) {
     Column {
         Text("¡Bienvenido a Lookeo!")
@@ -20,6 +23,24 @@ fun HomeScreen(
 
         Button(onClick = onNavigateToProfile) {
             Text("Ir a mi cuenta")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToWardrobe) {
+            Text("Ir a mi ropero")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToOutfits) {
+            Text("Ir a mis outfits")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = onNavigateToFavorites) {
+            Text("Ir a mis favoritos")
         }
     }
 }
