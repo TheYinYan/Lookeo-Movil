@@ -33,6 +33,7 @@ Este repositorio contiene **solo el frontend móvil**. El backend (API REST) est
 | **Principal** | Descripción del proyecto | [Enlace](https://github.com/TheYinYan/Proyecto_Intermodular) |
 | **Lookeo-Móvil** | App móvil (este repo) | [Enlace](https://github.com/TheYinYan/Lookeo-Movil) |
 | **Lookeo-Web** | App web | [Enlace](https://github.com/TheYinYan/Lookeo-Web) |
+| _Server-Lookeo_| Servidor/API REST        | [Enlace](https://github.com/TheYinYan/Server-Lookeo)         |
 
 ---
 
