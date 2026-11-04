@@ -45,9 +45,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         }
 
         composable(Routes.Profile.route) {
-            ProfileScreen {
-                navController.navigate(Routes.Home.route)
-            }
+            ProfileScreen (
+                onNavigateToHome = {navController.navigate(Routes.Home.route)},
+                onNavigateToLogin = {navController.navigate(Routes.Login.route)}
+            )
         }
 
         composable(Routes.Wardrobe.route) {
