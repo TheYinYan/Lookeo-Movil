@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.alanturing.lookeo_movil"
-        minSdk = 37
+        minSdk = 35
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,7 @@ android {
 
 dependencies {
     val navVersion = "2.10.2"
+    implementation("androidx.compose.material:material-icons-extended")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
