@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="56.091663mm"
+   height="66.544632mm"
+   viewBox="0 0 56.091663 66.544632"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-68.571525,-108.74375)">
+    <rect
+       x="68.571526"
+       y="173.70088"
+       width="56.091667"
+       height="1.5875"
+       rx="0.79374999"
+       fill="#d4af37"
+       id="rect3"
+       style="stroke-width:0.264583" />
+    <text
+       x="96.617355"
+       y="171.05504"
+       font-family="'Playfair Display', Georgia, serif"
+       font-size="68.7917px"
+       font-weight="700"
+       fill="#d4af37"
+       text-anchor="middle"
+       id="text3"
+       style="stroke-width:0.264583">L</text>
+    <g
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="6"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       transform="matrix(0.25556787,0.0684792,-0.0684792,0.25556787,42.833447,62.45283)"
+       id="g4">
+      <path
+         d="m 256,150 v -14 a 10,10 0 1 1 10,-10"
+         id="path3" />
+      <path
+         d="m 256,150 -40,38 h 80 z"
+         id="path4" />
+    </g>
+  </g>
+</svg>
