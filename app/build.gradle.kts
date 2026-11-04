@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.alanturing.lookeo_movil"
-        minSdk = 37
+        minSdk = 35
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
