@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Lookeo-Movil</string>
+
+    // Texto Login
     <string name="login_welcome">Bienvenido a tu armario</string>
     <string name="login_user_label">Usuario</string>
     <string name="login_password_label">Contraseña</string>
@@ -9,4 +11,18 @@
     <string name="login_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="login_user_placeholder">Introduzca su usuario o email</string>
     <string name="login_password_placeholder">••••••••</string>
+
+    // Texto Register
+    <string name="register_welcome">Crea tu cuenta</string>
+    <string name="register_user_label">Nombre de usuario</string>
+    <string name="register_email_label">Correo electrónico</string>
+    <string name="register_password_label">Contraseña</string>
+    <string name="register_password_confirm_label">Confirmar contraseña</string>
+    <string name="register_user_placeholder">Introduzca su nombre de usuario</string>
+    <string name="register_email_placeholder">Introduzca su correo electrónico</string>
+    <string name="register_password_placeholder">Crea una contraseña</string>
+    <string name="register_password_confirm_placeholder">Confirma tu contraseña</string>
+    <string name="register_button">Crear cuenta</string>
+    <string name="register_login_button">¿Ya tienes cuenta? </string>
+    <string name="register_login_button_link">Iniciar sesión</string>
 </resources>
