@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -31,6 +32,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextFieldDefaults
 
 @Composable
 fun LoginScreen(
@@ -73,12 +75,14 @@ fun LoginScreen(
         TextField(
             modifier = textFieldsModifier,
             value = date.userName,
-            keyboardOptions = customQuantityKeyboardOptions,
-            onValueChange = {
-                    viewModel.updateName(it)
-            },
+            onValueChange = { viewModel.updateName(it) },
             placeholder = { Text(stringResource(id = R.string.login_user_placeholder)) },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.colors(
+                unfocusedIndicatorColor = Color.Transparent,
+                unfocusedContainerColor = Color(0xFF2C2C2C)
+            )
         )
 
         Text(
@@ -95,7 +99,12 @@ fun LoginScreen(
                 viewModel.updatePassword(it)
             },
             placeholder = { Text(stringResource(id = R.string.login_password_placeholder)) },
-            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) }
+            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.colors(
+                unfocusedIndicatorColor = Color.Transparent,
+                unfocusedContainerColor = Color(0xFF2C2C2C)
+            )
         )
 
         ForgotPasswordLink()
