@@ -20,8 +20,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun LoginScreen(
     onNavigateToHome: () -> Unit,
-    viewModel: LoginViewModel = viewModel()
 ) {
+    val viewModel: LoginViewModel = viewModel()
+
     Column(
         modifier = Modifier
     ) {
@@ -44,8 +45,7 @@ fun LoginScreen(
             value = date.userName,
             keyboardOptions = customQuantityKeyboardOptions,
             onValueChange = {
-                    newText ->
-                //totalAmount = newText
+                    viewModel.updateGuest(it)
             },
         )
 

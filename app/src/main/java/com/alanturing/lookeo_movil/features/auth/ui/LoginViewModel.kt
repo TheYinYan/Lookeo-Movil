@@ -29,6 +29,13 @@ class LoginViewModel @Inject constructor() : ViewModel()
             _state.value = LoginUiState.Success
         }
     }
+
+    fun updateGuest(newName:String){
+        val oldState = date.value
+        _date.value = oldState.copy(
+            userName = newName
+        )
+    }
 }
 
 sealed class LoginUiState {
