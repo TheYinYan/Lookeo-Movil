@@ -30,10 +30,17 @@ class LoginViewModel @Inject constructor() : ViewModel()
         }
     }
 
-    fun updateGuest(newName:String){
+    fun updateName(newName:String){
         val oldState = date.value
         _date.value = oldState.copy(
             userName = newName
+        )
+    }
+
+    fun updatePassword(newPassword:String){
+        val oldState = date.value
+        _date.value = oldState.copy(
+            password = newPassword
         )
     }
 }
