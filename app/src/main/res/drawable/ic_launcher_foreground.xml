@@ -1,52 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-    width="56.091663mm"
-    height="66.544632mm"
-    viewBox="0 0 56.091663 66.544632"
-    version="1.1"
-    id="svg1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:svg="http://www.w3.org/2000/svg">
-    <defs
-        id="defs1" />
-    <g
-        id="layer1"
-        transform="translate(-68.571525,-108.74375)">
-        <rect
-            x="68.571526"
-            y="173.70088"
-            width="56.091667"
-            height="1.5875"
-            rx="0.79374999"
-            fill="#d4af37"
-            id="rect3"
-            style="stroke-width:0.264583" />
-        <text
-            x="96.617355"
-            y="171.05504"
-            font-family="'Playfair Display', Georgia, serif"
-            font-size="68.7917px"
-            font-weight="700"
-            fill="#d4af37"
-            text-anchor="middle"
-            id="text3"
-            style="stroke-width:0.264583">L</text>
-        <g
-            fill="none"
-            stroke="#ffffff"
-            stroke-width="6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            transform="matrix(0.25556787,0.0684792,-0.0684792,0.25556787,42.833447,62.45283)"
-            id="g4">
-            <path
-                d="m 256,150 v -14 a 10,10 0 1 1 10,-10"
-                id="path3" />
-            <path
-                d="m 256,150 -40,38 h 80 z"
-                id="path4" />
-        </g>
-    </g>
-</svg>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="56.092"
+    android:viewportHeight="66.545">
+  <group android:scaleX="0.27816305"
+      android:scaleY="0.33"
+      android:translateX="20.244638"
+      android:translateY="22.292576">
+    <path
+        android:pathData="M0.794,64.957L55.298,64.957A0.794,0.794 0,0 1,56.092 65.751L56.092,65.751A0.794,0.794 0,0 1,55.298 66.545L0.794,66.545A0.794,0.794 0,0 1,0 65.751L0,65.751A0.794,0.794 0,0 1,0.794 64.957z"
+        android:strokeWidth="0.264583"
+        android:fillColor="#d4af37"/>
+    <path
+        android:pathData="m51.626,47.028 l-0.941,15.283L6.784,62.311v-2.62q1.176,-0.101 2.754,-0.302 1.579,-0.235 2.083,-0.437 1.209,-0.47 1.679,-1.31 0.47,-0.84 0.47,-2.15v-33.623q0,-1.209 -0.369,-1.982 -0.369,-0.806 -1.78,-1.444 -1.041,-0.47 -2.519,-0.739 -1.444,-0.302 -2.318,-0.437v-2.62h26.166v2.62q-1.075,0.101 -2.553,0.302 -1.444,0.168 -2.519,0.504 -1.31,0.437 -1.747,1.377 -0.437,0.907 -0.437,2.083v31.339q0,2.217 0.302,3.493 0.302,1.276 1.176,1.881 0.873,0.638 2.418,0.84 1.579,0.168 4.333,0.168 2.687,0 5.206,-0.302 2.553,-0.336 3.661,-1.411 1.713,-1.713 3.493,-4.803 1.814,-3.124 2.889,-5.71z"
+        android:strokeWidth="0.264583"
+        android:fillColor="#d4af37"/>
+    <path
+        android:pathData="m29.415,9.575l0.959,-3.578a2.646,2.646 59.096,1 1,3.24 -1.871"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.588"
+        android:fillColor="#00000000"
+        android:strokeColor="#ffffff"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="m29.415,9.575 l-12.825,6.972l20.445,5.478z"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.588"
+        android:fillColor="#00000000"
+        android:strokeColor="#ffffff"
+        android:strokeLineCap="round"/>
+  </group>
+</vector>
