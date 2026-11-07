@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplay
-import com.alanturing.lookeo_movil.core.ui.theme.Inter
+import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
@@ -34,7 +34,7 @@ fun LoadingScreen(
     onNavigateToLogin: () -> Unit
 ) {
     LaunchedEffect(Unit) {
-        delay(2.seconds);
+        delay(5.seconds);
         onNavigateToLogin();
     }
     Column(
@@ -44,32 +44,32 @@ fun LoadingScreen(
             .padding(horizontal = 24.dp)
             .padding(top = 40.dp),
 
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(
+            modifier = Modifier.height(110.dp)
+        )
         Box(
-            modifier = Modifier.size(160.dp),
+            modifier = Modifier.size(200.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painterResource(R.drawable.ic_launcher_background),
                 contentDescription = null,
-                modifier = Modifier.size(160.dp)
+                modifier = Modifier.size(200.dp)
             )
             Image(
                 painterResource(R.drawable.ic_launcher_foreground),
                 contentDescription = null,
-                modifier = Modifier.size(160.dp)
+                modifier = Modifier.size(200.dp)
             )
         }
 
-        Spacer(
-            modifier = Modifier.height(15.dp)
-        )
-
         Text(
             text = "Lookeo",
-            fontFamily = PlayfairDisplay,
-            fontSize = 42.sp,
+            fontFamily = PlayfairDisplayRegular,
+            fontSize = 72.sp,
             color = LookeoGold,
         )
 
@@ -79,13 +79,13 @@ fun LoadingScreen(
 
         Text(
             text = "TU ARMARIO. TU ESTILO.",
-            fontFamily = Inter,
-            fontSize = 12.sp,
+            fontFamily = InterRegular,
+            fontSize = 10.sp,
             color = LookeoGray,
         )
 
         Spacer(
-            modifier = Modifier.height(50.dp)
+            modifier = Modifier.height(70.dp)
         )
 
         CircularProgressIndicator(
@@ -93,20 +93,24 @@ fun LoadingScreen(
             modifier = Modifier.size(32.dp)
         )
 
+        Spacer(
+            modifier = Modifier.height(15.dp)
+        )
+
         Text(
             text = "Cargando...",
-            fontFamily = Inter,
+            fontFamily = InterRegular,
             fontSize = 12.sp,
             color = LookeoWhite,
         )
 
         Spacer(
-            modifier = Modifier.height(50.dp)
+            modifier = Modifier.height(70.dp)
         )
 
         Text(
             text = "El arte de vestir a tu manera",
-            fontFamily = Inter,
+            fontFamily = InterRegular,
             fontSize = 12.sp,
             color = LookeoGray,
         )

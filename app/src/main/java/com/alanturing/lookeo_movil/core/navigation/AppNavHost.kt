@@ -12,6 +12,7 @@ import com.alanturing.lookeo_movil.features.profile.ui.ProfileScreen
 import com.alanturing.lookeo_movil.features.outfits.ui.OutfitsScreen
 import com.alanturing.lookeo_movil.features.wardrobe.ui.WardrobeScreen
 import com.alanturing.lookeo_movil.features.favorites.ui.FavoritesScreen
+import com.alanturing.lookeo_movil.features.loading.ui.LoadingScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -19,9 +20,16 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Register.route,
+        startDestination = Routes.Loading.route,
         modifier = modifier
     ) {
+
+        composable(Routes.Loading.route) {
+            LoadingScreen (
+                onNavigateToLogin = {navController.navigate(Routes.Login.route)}
+            )
+        }
+
         composable(Routes.Register.route) {
             RegisterScreen (
                 onNavigateToHome = {navController.navigate(Routes.Home.route)},

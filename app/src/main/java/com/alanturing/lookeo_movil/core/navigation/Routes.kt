@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Routes(val route: String){
     @Serializable
+    object Loading: Routes("LoadingScreen")
+
+    @Serializable
     object Home: Routes("HomeScreen")
 
     @Serializable

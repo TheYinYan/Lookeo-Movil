@@ -36,10 +36,18 @@ val Typography = Typography(
     */
 )
 
-val PlayfairDisplay = FontFamily(
+val PlayfairDisplayRegular = FontFamily(
+    Font(R.font.playfair_display_regular)
+)
+
+val PlayfairDisplayBold = FontFamily(
     Font(R.font.playfair_display_bold)
 )
 
-val Inter = FontFamily(
+val InterRegular = FontFamily(
     Font(R.font.inter_18pt_regular)
+)
+
+val InterBold = FontFamily(
+    Font(R.font.inter_18pt_bold)
 )
