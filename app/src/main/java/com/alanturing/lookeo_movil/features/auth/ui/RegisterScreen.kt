@@ -2,6 +2,7 @@ package com.alanturing.lookeo_movil.features.auth.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -49,7 +51,9 @@ import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkGrey
 import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayBold
+import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun RegisterScreen(
@@ -72,8 +76,8 @@ fun RegisterScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.app_logo),
-                    fontFamily = PlayfairDisplayBold,
-                    fontSize = 25.sp,
+                    fontFamily = PlayfairDisplayRegular,
+                    fontSize = 50.sp,
                     color = LookeoGold,
                 )
             }
@@ -103,20 +107,11 @@ fun RegisterScreen(
                     .clip(RoundedCornerShape(16.dp))
             )
 
-            /* Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = stringResource(id = R.string.register_welcome),
-                fontFamily = InterBold,
-                fontSize = 15.sp,
-                color = LookeoGray
-            )
-
-            Spacer(modifier = Modifier.height(16.dp)) */
+            Spacer(modifier = Modifier.height(24.dp))
 
             val textFieldsModifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 8.dp)
+                .padding(top = 8.dp)
             val customQuantityKeyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text
             )
@@ -124,7 +119,7 @@ fun RegisterScreen(
             Text(
                 text = stringResource(id = R.string.register_user_label),
                 fontFamily = InterRegular,
-                fontSize = 12.sp,
+                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -136,15 +131,15 @@ fun RegisterScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoGray
+                    unfocusedContainerColor = LookeoDarkGrey
                 )
             )
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
 
             Text(
                 text = stringResource(id = R.string.register_email_label),
                 fontFamily = InterRegular,
-                fontSize = 12.sp,
+                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -156,16 +151,16 @@ fun RegisterScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoGray
+                    unfocusedContainerColor = LookeoDarkGrey
                 )
             )
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
 
 
             Text(
                 text = stringResource(id = R.string.register_password_label),
                 fontFamily = InterRegular,
-                fontSize = 12.sp,
+                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -177,15 +172,15 @@ fun RegisterScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoGray
+                    unfocusedContainerColor = LookeoDarkGrey
                 )
             )
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
 
             Text(
                 text = stringResource(id = R.string.register_password_confirm_label),
                 fontFamily = InterRegular,
-                fontSize = 12.sp,
+                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -197,19 +192,21 @@ fun RegisterScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoGray
+                    unfocusedContainerColor = LookeoDarkGrey
                 )
             )
             Text(
                 text = stringResource(id = R.string.register_password_characters),
                 fontFamily = InterRegular,
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 color = LookeoGray,
             )
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
                     checked = acceptedTerms,
@@ -220,25 +217,25 @@ fun RegisterScreen(
                 Text(
                     text = stringResource(id = R.string.register_accept) + " ",
                     fontFamily = InterRegular,
-                    fontSize = 10.sp,
+                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_terms) + " ",
                     fontFamily = InterRegular,
-                    fontSize = 10.sp,
+                    fontSize = 11.sp,
                     color = LookeoGold
                 )
                 Text(
                     text = stringResource(id = R.string.register_and) + " ",
                     fontFamily = InterRegular,
-                    fontSize = 10.sp,
+                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_privacy),
-                    fontFamily = InterBold,
-                    fontSize = 10.sp,
+                    fontFamily = InterRegular,
+                    fontSize = 11.sp,
                     color = LookeoGold
                 )
             }
@@ -250,12 +247,13 @@ fun RegisterScreen(
                     containerColor = LookeoGold,
                     contentColor = LookeoBlack
                 ),
+                shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = stringResource(id = R.string.register_button),
-                    fontFamily = InterBold,
-                    fontSize = 12.sp,
+                    fontFamily = InterRegular,
+                    fontSize = 15.sp,
                     color = LookeoBlack
                 )
             }
@@ -263,25 +261,31 @@ fun RegisterScreen(
             OnLogin(onNavigateToLogin)
         }
     }
-    }
-
+}
 
 
 @Composable
 fun OnLogin(onNavigateToLogin: () -> Unit) {
     Spacer(Modifier.height(16.dp))
-    Row {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(
             text = stringResource(id = R.string.register_login_button) + " ",
             fontFamily = InterRegular,
-            fontSize = 10.sp,
+            fontSize = 15.sp,
             color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.register_login_button_link),
             fontFamily = InterBold,
-            fontSize = 10.sp,
-            color = LookeoGold
+            fontSize = 15.sp,
+            color = LookeoGold,
+            modifier = Modifier.clickable {
+                onNavigateToLogin()
+            }
         )
     }
 }

@@ -81,7 +81,7 @@ fun LoadingScreen(
         Text(
             text = stringResource(id = R.string.loading_slogan1),
             fontFamily = InterRegular,
-            fontSize = 10.sp,
+            fontSize = 12.sp,
             color = LookeoGray,
         )
 
@@ -112,7 +112,7 @@ fun LoadingScreen(
         Text(
             text = stringResource(id = R.string.loading_slogan2),
             fontFamily = InterRegular,
-            fontSize = 12.sp,
+            fontSize = 14.sp,
             color = LookeoGray,
         )
     }

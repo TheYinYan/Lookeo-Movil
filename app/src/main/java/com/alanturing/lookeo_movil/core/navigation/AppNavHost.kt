@@ -32,7 +32,6 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
         composable(Routes.Register.route) {
             RegisterScreen (
-                onNavigateToHome = {navController.navigate(Routes.Home.route)},
                 onNavigateToLogin = {navController.navigate(Routes.Login.route)}
             )
         }

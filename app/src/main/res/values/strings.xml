@@ -2,13 +2,13 @@
     <string name="app_name">Lookeo-Movil</string>
     <string name="app_logo">Lookeo</string>
 
-    // Texto Loading
+    <!-- Texto Loading -->
     <string name="loading_lookeo">Lookeo</string>
     <string name="loading_slogan1">TU ARMARIO. TU ESTILO.</string>
     <string name="loading_cargando">Cargando</string>
     <string name="loading_slogan2">El arte de vestir a tu manera</string>
 
-    // Texto Login
+    <!-- Texto Login -->
     <string name="login_welcome">Bienvenido a tu armario</string>
     <string name="login_user_label">Usuario</string>
     <string name="login_password_label">Contraseña</string>
@@ -19,14 +19,14 @@
     <string name="login_user_placeholder">Introduzca su usuario o email</string>
     <string name="login_password_placeholder">••••••••</string>
 
-    // Texto Register
+    <!-- Texto Register -->
     <string name="register_welcome">Crea tu cuenta</string>
     <string name="register_user_label">Nombre de usuario</string>
     <string name="register_email_label">Correo electrónico</string>
     <string name="register_password_label">Contraseña</string>
     <string name="register_password_confirm_label">Confirmar contraseña</string>
-    <string name="register_user_placeholder">Introduzca su nombre de usuario</string>
-    <string name="register_email_placeholder">Introduzca su correo electrónico</string>
+    <string name="register_user_placeholder">Elige tu nombre de usuario</string>
+    <string name="register_email_placeholder">Introduce su correo electrónico</string>
     <string name="register_password_placeholder">Crea una contraseña</string>
     <string name="register_password_confirm_placeholder">Confirma tu contraseña</string>
     <string name="register_password_characters">Usa al menos 8 caracteres</string>
