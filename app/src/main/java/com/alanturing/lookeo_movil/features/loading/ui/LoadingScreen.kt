@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.lookeo_movil.R
@@ -67,7 +68,7 @@ fun LoadingScreen(
         }
 
         Text(
-            text = "Lookeo",
+            text = stringResource(id = R.string.loading_lookeo),
             fontFamily = PlayfairDisplayRegular,
             fontSize = 72.sp,
             color = LookeoGold,
@@ -78,7 +79,7 @@ fun LoadingScreen(
         )
 
         Text(
-            text = "TU ARMARIO. TU ESTILO.",
+            text = stringResource(id = R.string.loading_slogan1),
             fontFamily = InterRegular,
             fontSize = 10.sp,
             color = LookeoGray,
@@ -98,7 +99,7 @@ fun LoadingScreen(
         )
 
         Text(
-            text = "Cargando...",
+            text = stringResource(id = R.string.loading_cargando),
             fontFamily = InterRegular,
             fontSize = 12.sp,
             color = LookeoWhite,
@@ -109,7 +110,7 @@ fun LoadingScreen(
         )
 
         Text(
-            text = "El arte de vestir a tu manera",
+            text = stringResource(id = R.string.loading_slogan2),
             fontFamily = InterRegular,
             fontSize = 12.sp,
             color = LookeoGray,
