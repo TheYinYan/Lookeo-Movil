@@ -69,7 +69,7 @@ fun RegisterScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(72.dp)
+                    .height(100.dp)
                     .background(LookeoBlack),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -89,7 +89,7 @@ fun RegisterScreen(
                 .background(LookeoBlack)
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
-                .padding(top = 40.dp)
+                .padding(top = 10.dp)
                 .verticalScroll(rememberScrollState()),
 
             verticalArrangement = Arrangement.Center

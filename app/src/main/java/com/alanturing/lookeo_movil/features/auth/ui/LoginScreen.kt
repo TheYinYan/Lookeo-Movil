@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.IconButton
@@ -67,7 +68,7 @@ fun LoginScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(72.dp)
+                    .height(100.dp)
                     .background(LookeoBlack),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -87,9 +88,9 @@ fun LoginScreen(
                 .background(LookeoBlack)
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
-                .padding(top = 40.dp),
+                .padding(top = 10.dp),
 
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             val date by viewModel.date.collectAsStateWithLifecycle()
 
