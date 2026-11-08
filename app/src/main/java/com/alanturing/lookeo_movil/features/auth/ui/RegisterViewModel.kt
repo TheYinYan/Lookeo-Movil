@@ -10,17 +10,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : ViewModel(){ private val _state: MutableStateFlow<RegisterUiState> =
+class RegisterViewModel @Inject constructor() : ViewModel(){
+    private val _state: MutableStateFlow<RegisterUiState> =
     MutableStateFlow(value = RegisterUiState.Loading)
 
-    private val _date: MutableStateFlow<RegisterUiDate> =
-        MutableStateFlow(value = RegisterUiDate())
+    private val _data: MutableStateFlow<RegisterUiData> =
+        MutableStateFlow(value = RegisterUiData())
 
     val state: StateFlow<RegisterUiState>
         get() = _state.asStateFlow()
 
-    val date: StateFlow<RegisterUiDate>
-        get() = _date.asStateFlow()
+    val data: StateFlow<RegisterUiData>
+        get() = _data.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -29,15 +30,15 @@ class RegisterViewModel @Inject constructor() : ViewModel(){ private val _state:
     }
 
     fun createName(newName: String) {
-        _date.value = _date.value.copy(userName = newName)
+        _data.value = _data.value.copy(userName = newName)
     }
 
     fun createEmail(newEmail: String) {
-        _date.value = _date.value.copy(email = newEmail)
+        _data.value = _data.value.copy(email = newEmail)
     }
 
     fun createPassword(newPassword: String) {
-        _date.value = _date.value.copy(password = newPassword)
+        _data.value = _data.value.copy(password = newPassword)
     }
 }
 
@@ -47,9 +48,10 @@ sealed class RegisterUiState {
     data class Error(val message: String) : RegisterUiState()
 }
 
-data class RegisterUiDate(
+data class RegisterUiData(
     val userName: String = "",
     val email: String = "",
     val password: String = "",
-    val exite: Boolean = false,
+    val confirmPassword: String = "",
+    val exist: Boolean = false,
 )
