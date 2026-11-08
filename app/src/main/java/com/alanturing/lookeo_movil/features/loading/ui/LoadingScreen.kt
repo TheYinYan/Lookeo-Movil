@@ -16,15 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
-import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
@@ -40,7 +40,7 @@ fun LoadingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(LookeoBlack)
             .padding(horizontal = 24.dp)
             .padding(top = 40.dp),
 

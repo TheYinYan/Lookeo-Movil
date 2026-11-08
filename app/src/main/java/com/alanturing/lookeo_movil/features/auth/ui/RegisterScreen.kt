@@ -34,9 +34,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alanturing.lookeo_movil.R
+import com.alanturing.lookeo_movil.core.ui.theme.InterBold
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
+import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun RegisterScreen(
@@ -48,7 +56,7 @@ fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(LookeoBlack)
             .padding(horizontal = 24.dp)
             .padding(top = 40.dp),
 
@@ -70,11 +78,10 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            color = Color.White,
             text = stringResource(id = R.string.register_welcome),
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontWeight = FontWeight.Bold
-            )
+            fontFamily = InterBold,
+            fontSize = 15.sp,
+            color = LookeoGray
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -86,7 +93,7 @@ fun RegisterScreen(
             keyboardType = KeyboardType.Text
         )
         Text(
-            color = Color.Gray,
+            color = LookeoGray,
             text = stringResource(id = R.string.register_user_label)
         )
         TextField(
@@ -107,14 +114,16 @@ fun RegisterScreen(
         Button(
             onClick = onNavigateToHome,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFC107),
-                contentColor = Color.Black
+                containerColor = LookeoGold,
+                contentColor = LookeoBlack
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(id = R.string.register_button),
-                fontWeight = FontWeight.Bold
+                fontFamily = InterBold,
+                fontSize = 12.sp,
+                color = LookeoBlack
             )
         }
 
@@ -128,15 +137,15 @@ fun onLogin(onNavigateToLogin: () -> Unit) {
     Row() {
         Text(
             text = stringResource(id = R.string.register_login_button) +" ",
-            color = Color.Gray
+            fontFamily = InterBold,
+            fontSize = 10.sp,
+            color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.register_login_button_link),
-            color = Color(0xFFFFC107),
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable {
-                onNavigateToLogin()
-            }
+            fontFamily = InterBold,
+            fontSize = 10.sp,
+            color = LookeoGold
         )
     }
 }

@@ -35,8 +35,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.IconButton
@@ -48,6 +46,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.sp
+import com.alanturing.lookeo_movil.core.ui.theme.InterBold
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
+import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun LoginScreen(
@@ -59,7 +65,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(LookeoBlack)
             .padding(horizontal = 24.dp)
             .padding(top = 40.dp),
 
@@ -81,11 +87,10 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            color = Color.White,
             text = stringResource(id = R.string.login_welcome),
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontWeight = FontWeight.Bold
-            )
+            fontFamily = InterBold,
+            fontSize = 15.sp,
+            color = LookeoWhite
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -98,8 +103,10 @@ fun LoginScreen(
         )
 
         Text(
-            color = Color.Gray,
-            text = stringResource(id = R.string.login_user_label)
+            text = stringResource(id = R.string.login_user_label),
+            fontFamily = InterBold,
+            fontSize = 10.sp,
+            color = LookeoGray
         )
 
         TextField(
@@ -111,13 +118,15 @@ fun LoginScreen(
             shape = RoundedCornerShape(12.dp),
             colors = TextFieldDefaults.colors(
                 unfocusedIndicatorColor = Color.Transparent,
-                unfocusedContainerColor = Color(0xFF2C2C2C)
+                unfocusedContainerColor = LookeoGray
             )
         )
 
         Text(
-            color = Color.Gray,
-            text = stringResource(id = R.string.login_password_label)
+            text = stringResource(id = R.string.login_password_label),
+            fontFamily = InterBold,
+            fontSize = 10.sp,
+            color = LookeoGray
         )
 
         var passwordVisible by remember { mutableStateOf(false) }
@@ -142,7 +151,7 @@ fun LoginScreen(
             shape = RoundedCornerShape(12.dp),
             colors = TextFieldDefaults.colors(
                 unfocusedIndicatorColor = Color.Transparent,
-                unfocusedContainerColor = Color(0xFF2C2C2C)
+                unfocusedContainerColor = LookeoGray
             )
         )
 
@@ -153,14 +162,16 @@ fun LoginScreen(
         Button(
             onClick = onNavigateToHome,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFC107),
-                contentColor = Color.Black
+                containerColor = LookeoGold,
+                contentColor = LookeoBlack
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(id = R.string.login_button),
-                fontWeight = FontWeight.Bold
+                fontFamily = InterBold,
+                fontSize = 12.sp,
+                color = LookeoBlack
             )
         }
 
@@ -173,12 +184,15 @@ fun onRegister(onNavigateToRegister: () -> Unit) {
     Row() {
         Text(
             text = stringResource(id = R.string.login_register_button) +" ",
-            color = Color.Gray
+            fontFamily = InterBold,
+            fontSize = 12.sp,
+            color = LookeoBlack
         )
         Text(
             text = stringResource(id = R.string.login_register_button_link),
-            color = Color(0xFFFFC107),
-            fontWeight = FontWeight.Bold,
+            fontFamily = InterBold,
+            fontSize = 12.sp,
+            color = LookeoGold,
             modifier = Modifier.clickable {
                 onNavigateToRegister()
             }
