@@ -58,6 +58,7 @@ import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 @Composable
 fun RegisterScreen(
     onNavigateToLogin: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val viewModel: RegisterViewModel = viewModel()
     var acceptedTerms by remember {
@@ -242,7 +243,7 @@ fun RegisterScreen(
 
             Button(
                 enabled = acceptedTerms,
-                onClick = onNavigateToLogin,
+                onClick = onNavigateToHome,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LookeoGold,
                     contentColor = LookeoBlack
