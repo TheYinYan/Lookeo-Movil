@@ -40,6 +40,9 @@ android {
 
 dependencies {
     val navVersion = "2.10.2"
+
+    // Splash Screen
+    implementation("androidx.core:core-splashscreen:1.2.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
