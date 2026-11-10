@@ -20,70 +20,71 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Loading.route,
+        startDestination = Routes.Loading,
         modifier = modifier
     ) {
 
-        composable(Routes.Loading.route) {
+        composable<Routes.Loading> {
             LoadingScreen (
-                onNavigateToLogin = {navController.navigate(Routes.Login.route)}
+                onNavigateToLogin = {navController.navigate(Routes.Login)}
             )
         }
 
-        composable(Routes.Register.route) {
+        composable<Routes.Register> {
             RegisterScreen (
-                onNavigateToHome = {navController.navigate(Routes.Home.route)},
-                onNavigateToLogin = {navController.navigate(Routes.Login.route)}
+                onNavigateToHome = {navController.navigate(Routes.Home)},
+
+                onNavigateToLogin = {navController.navigate(Routes.Login)}
             )
         }
 
-        composable(Routes.Login.route){
+        composable<Routes.Login> {
             LoginScreen (
-                onNavigateToHome = {navController.navigate(Routes.Home.route)},
-                onNavigateToRegister = {navController.navigate(Routes.Register.route)}
+                onNavigateToHome = {navController.navigate(Routes.Home)},
+                onNavigateToRegister = {navController.navigate(Routes.Register)}
             )
         }
 
-        composable(Routes.Home.route) {
+        composable<Routes.Home> {
             HomeScreen(
-                onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
-                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe.route) },
-                onNavigateToOutfits = { navController.navigate(Routes.Outfits.route) },
-                onNavigateToFavorites = { navController.navigate(Routes.Favorites.route) }
+                onNavigateToProfile = { navController.navigate(Routes.Profile) },
+                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe) },
+                onNavigateToOutfits = { navController.navigate(Routes.Outfits) },
+                onNavigateToFavorites = { navController.navigate(Routes.Favorites) }
             )
         }
 
-        composable(Routes.Profile.route) {
+        composable<Routes.Profile> {
             ProfileScreen (
-                onNavigateToHome = {navController.navigate(Routes.Home.route)},
-                onNavigateToLogin = {navController.navigate(Routes.Login.route)}
+                onNavigateToHome = {navController.navigate(Routes.Home)},
+                onNavigateToLogin = {navController.navigate(Routes.Login)}
             )
         }
 
-        composable(Routes.Wardrobe.route) {
+        composable<Routes.Wardrobe> {
             WardrobeScreen(
-                onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
-                onNavigateToOutfits = { navController.navigate(Routes.Outfits.route) },
-                onNavigateToFavorites = { navController.navigate(Routes.Favorites.route) }
+                onNavigateToHome = { navController.navigate(Routes.Home) },
+                onNavigateToProfile = { navController.navigate(Routes.Profile) },
+                onNavigateToOutfits = { navController.navigate(Routes.Outfits) },
+                onNavigateToFavorites = { navController.navigate(Routes.Favorites) }
             )
         }
 
-        composable(Routes.Outfits.route) {
+        composable<Routes.Outfits> {
             OutfitsScreen(
-                onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
-                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe.route) },
-                onNavigateToFavorites = { navController.navigate(Routes.Favorites.route) }
+                onNavigateToHome = { navController.navigate(Routes.Home) },
+                onNavigateToProfile = { navController.navigate(Routes.Profile) },
+                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe) },
+                onNavigateToFavorites = { navController.navigate(Routes.Favorites) }
             )
         }
 
-        composable(Routes.Favorites.route) {
+        composable<Routes.Favorites> {
             FavoritesScreen(
-                onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
-                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe.route) },
-                onNavigateToOutfits = { navController.navigate(Routes.Outfits.route) }
+                onNavigateToHome = { navController.navigate(Routes.Home) },
+                onNavigateToProfile = { navController.navigate(Routes.Profile) },
+                onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe) },
+                onNavigateToOutfits = { navController.navigate(Routes.Outfits) }
             )
         }
     }

@@ -2,40 +2,40 @@ package com.alanturing.lookeo_movil.core.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Routes(val route: String){
+sealed class Routes(){
     @Serializable
-    object Loading: Routes("LoadingScreen")
+    object Loading
 
     @Serializable
-    object Home: Routes("HomeScreen")
+    object Home
 
     @Serializable
-    object Login: Routes("LoginScreen")
+    object Login
 
     @Serializable
-    object Register: Routes("RegisterScreen")
+    object Register
 
     @Serializable
-    object Wardrobe: Routes("WardrobeScreen")
+    object Wardrobe
 
     @Serializable
-    object Outfits: Routes("OutfitsScreen")
+    object Outfits
 
     @Serializable
-    object Profile: Routes("ProfileScreen")
+    object Profile
 
     @Serializable
-    object Setting: Routes("SettingScreen")
+    object Settings
 
     @Serializable
-    object NewItem: Routes("NewItemScreen")
+    object NewItem
 
     @Serializable
-    object Favorites: Routes("FavoritesScreen")
+    object Favorites
 
     @Serializable
-    class DetailItem(itemId: String): Routes("ItemDetailScreen/${itemId}")
+    data class DetailItem(val itemId: String) //: Routes("ItemDetailScreen/${itemId}")
 
     @Serializable
-    class DetailOutfit(outfitId : String): Routes("OutfitDetailScreen/${outfitId}")
+    data class DetailOutfit(val outfitId : String) //: Routes("OutfitDetailScreen/${outfitId}")
 }
