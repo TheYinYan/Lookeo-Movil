@@ -20,15 +20,9 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Loading,
+        startDestination = Routes.Login,
         modifier = modifier
     ) {
-
-        composable<Routes.Loading> {
-            LoadingScreen (
-                onNavigateToLogin = {navController.navigate(Routes.Login)}
-            )
-        }
 
         composable<Routes.Register> {
             RegisterScreen (

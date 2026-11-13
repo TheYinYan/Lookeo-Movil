@@ -4,9 +4,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Routes(){
     @Serializable
-    object Loading
-
-    @Serializable
     object Home
 
     @Serializable

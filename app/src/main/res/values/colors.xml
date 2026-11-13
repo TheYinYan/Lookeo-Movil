@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="lookeo_black">#000000</color>
+    <color name="lookeo_gold">#D4AF37</color>
+    <color name="lookeo_gray">#A6A6A0</color>
+    <color name="lookeo_white">#FFFFFF</color>
+    <color name="lookeo_dark_grey">#2C2C2C</color>
 </resources>
