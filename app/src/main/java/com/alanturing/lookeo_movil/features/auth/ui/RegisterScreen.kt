@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -52,7 +51,6 @@ import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkGrey
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayBold
 import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
