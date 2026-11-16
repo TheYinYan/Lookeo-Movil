@@ -113,8 +113,18 @@ Estas pantallas describen la propuesta funcional del proyecto. Su implementació
 
 ---
 
-## 📌 Estado del proyecto
+## 📌 Estado del proyecto (Actualizado)
 
-**En desarrollo.**
+**Sprint: 1**
+**Objetivo:** Comprobar que la infraestructura inicial del cliente Android está preparada para comenzar el desarrollo de interfaces y la conexión con la API.
 
-Las funcionalidades, las pantallas y la arquitectura pueden evolucionar a medida que avance el proyecto.
+**Validación técnica**
+- [x] El proyecto sincroniza correctamente con Gradle.
+- [x] La compilación termina sin errores.
+- [x] La aplicación se instala en el emulador.
+- [x] La aplicación arranca correctamente.
+- [x] Se muestra el SplashScreen.
+- [x] La navegación inicial llega a la pantalla Login.
+- [x] No aparecen cierres inesperados ni errores que impidan el arranque.
+- [x] La paleta de colores está definida en el tema.
+- [x] Las rutas principales están declaradas en Routes y AppNavHost.
