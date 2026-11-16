@@ -1,4 +1,4 @@
-package com.alanturing.lookeo_movil.core.network
+package com.alanturing.lookeo_movil.core.data.remote
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
