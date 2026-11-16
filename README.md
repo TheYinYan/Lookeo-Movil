@@ -34,11 +34,12 @@ Este repositorio contiene el cliente móvil. El backend y la API REST se gestion
 
 ## 🧩 Repositorios del proyecto
 
-| Repositorio            | Descripción                                 | Enlace                                                                      |
-|------------------------|---------------------------------------------|-----------------------------------------------------------------------------|
-| **Proyecto principal** | Documentación y visión general del proyecto | [Proyecto_Intermodular](https://github.com/TheYinYan/Proyecto_Intermodular) |
-| **Lookeo-Móvil**       | Aplicación móvil (este repositorio)         | [Lookeo-Movil](https://github.com/TheYinYan/Lookeo-Movil)                   |
-| **Lookeo-Web**         | Aplicación web                              | [Lookeo-Web](https://github.com/TheYinYan/Lookeo-Web)                       |
+| Repo | Descripción | Enlace |
+|------|-------------|--------|
+| **Principal** | Descripción del proyecto | [Enlace](https://github.com/TheYinYan/Proyecto_Intermodular) |
+| **Lookeo-Móvil** | App móvil (este repo) | [Enlace](https://github.com/TheYinYan/Lookeo-Movil) |
+| **Lookeo-Web** | App web | [Enlace](https://github.com/TheYinYan/Lookeo-Web) |
+| **Server-Lookeo** | Servidor/API REST        | [Enlace](https://github.com/TheYinYan/Server-Lookeo)         |
 
 ---
 
