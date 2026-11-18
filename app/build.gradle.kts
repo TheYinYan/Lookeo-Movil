@@ -42,6 +42,10 @@ android {
 dependencies {
     val navVersion = "2.10.2"
 
+    // Room
+    implementation("androidx.room3:room3-runtime:3.0.3")
+    ksp("androidx.room3:room3-compiler:3.0.3")
+
     // Splash Screen
     implementation("androidx.core:core-splashscreen:1.2.0")
     implementation("androidx.compose.material:material-icons-extended")
