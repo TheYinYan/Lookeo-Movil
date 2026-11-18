@@ -1,9 +1,9 @@
-package com.alanturing.lookeo_movil.features.auth.data.user.local
+package com.alanturing.lookeo_movil.features.auth.data.local
 
-import com.alanturing.lookeo_movil.features.auth.data.user.local.model.UserEntity
-import com.alanturing.lookeo_movil.features.auth.data.user.local.model.toEntity
-import com.alanturing.lookeo_movil.features.auth.data.user.local.model.toModel
-import com.alanturing.lookeo_movil.features.auth.data.user.model.User
+import com.alanturing.lookeo_movil.features.auth.data.local.model.UserEntity
+import com.alanturing.lookeo_movil.features.auth.data.local.model.toEntity
+import com.alanturing.lookeo_movil.features.auth.data.local.model.toModel
+import com.alanturing.lookeo_movil.features.auth.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

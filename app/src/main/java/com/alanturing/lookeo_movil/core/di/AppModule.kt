@@ -1,7 +1,7 @@
 package com.alanturing.lookeo_movil.core.di
 
-import com.alanturing.lookeo_movil.features.auth.data.user.local.UserLocalDBDatasource
-import com.alanturing.lookeo_movil.features.auth.data.user.local.UserLocalDataSource
+import com.alanturing.lookeo_movil.features.auth.data.local.UserLocalDBDatasource
+import com.alanturing.lookeo_movil.features.auth.data.local.UserLocalDataSource
 import dagger.Binds
 import javax.inject.Singleton
 

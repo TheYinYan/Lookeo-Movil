@@ -2,8 +2,8 @@ package com.alanturing.lookeo_movil.core.data.local
 
 import androidx.room3.Database
 import androidx.room3.RoomDatabase
-import com.alanturing.lookeo_movil.features.auth.data.user.local.UserDao
-import com.alanturing.lookeo_movil.features.auth.data.user.local.model.UserEntity
+import com.alanturing.lookeo_movil.features.auth.data.local.UserDao
+import com.alanturing.lookeo_movil.features.auth.data.local.model.UserEntity
 
 @Database(
     entities = [UserEntity::class],

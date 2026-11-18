@@ -1,6 +1,6 @@
-package com.alanturing.lookeo_movil.features.auth.data.user.local
+package com.alanturing.lookeo_movil.features.auth.data.local
 
-import com.alanturing.lookeo_movil.features.auth.data.user.model.User
+import com.alanturing.lookeo_movil.features.auth.data.model.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserLocalDataSource {

@@ -1,10 +1,10 @@
-package com.alanturing.lookeo_movil.features.auth.data.user.local
+package com.alanturing.lookeo_movil.features.auth.data.local
 
 import androidx.room3.Dao
 import androidx.room3.Insert
 import androidx.room3.OnConflictStrategy
 import androidx.room3.Query
-import com.alanturing.lookeo_movil.features.auth.data.user.local.model.UserEntity
+import com.alanturing.lookeo_movil.features.auth.data.local.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
