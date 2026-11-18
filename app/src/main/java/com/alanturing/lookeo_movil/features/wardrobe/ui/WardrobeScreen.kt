@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.components.LookeoBottomBar
+import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
@@ -37,21 +38,7 @@ fun WardrobeScreen(
 ) {
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(LookeoBlack),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.app_logo),
-                    fontFamily = PlayfairDisplayRegular,
-                    fontSize = 50.sp,
-                    color = LookeoGold,
-                )
-            }
+            LookeoTopBar()
         },
         bottomBar = {
             LookeoBottomBar(

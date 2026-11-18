@@ -2,6 +2,7 @@ package com.alanturing.lookeo_movil.features.profile.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,8 +10,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.lookeo_movil.R
+import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
@@ -36,21 +43,7 @@ fun ProfileScreen(
 ) {
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(LookeoBlack),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.app_logo),
-                    fontFamily = PlayfairDisplayRegular,
-                    fontSize = 50.sp,
-                    color = LookeoGold,
-                )
-            }
+            LookeoTopBar(onNavigateToHome)
         }
     ) { innerPadding ->
         Column(
@@ -63,17 +56,6 @@ fun ProfileScreen(
             Text("Perfil de usuario")
 
             Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = onNavigateToHome,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = LookeoGold,
-                    contentColor = LookeoBlack
-                ),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Volver a Home")
-            }
 
             Button(
                 onClick = onNavigateToLogin,
