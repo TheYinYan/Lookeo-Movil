@@ -1,6 +1,9 @@
 package com.alanturing.lookeo_movil.features.favorites.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,8 +14,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.components.LookeoBottomBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
@@ -29,6 +36,23 @@ fun FavoritesScreen(
     onNavigateToHome: () -> Unit
 ) {
     Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(LookeoBlack)
+                    .height(100.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.app_logo),
+                    fontFamily = PlayfairDisplayRegular,
+                    fontSize = 50.sp,
+                    color = LookeoGold,
+                )
+            }
+        },
         bottomBar = {
             LookeoBottomBar(
                 selectedTab = "favorites",
@@ -42,6 +66,7 @@ fun FavoritesScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(LookeoBlack)
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
