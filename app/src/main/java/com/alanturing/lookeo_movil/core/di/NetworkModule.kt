@@ -1,5 +1,6 @@
 package com.alanturing.lookeo_movil.core.di
 
+import retrofit2.converter.gson.GsonConverterFactory
 import com.alanturing.lookeo_movil.core.data.remote.LookeoApi
 import dagger.Module
 import dagger.Provides
@@ -17,6 +18,7 @@ class NetworkModule {
     fun providesApi(): LookeoApi {
         val client = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
         return client.create<LookeoApi>()
     }

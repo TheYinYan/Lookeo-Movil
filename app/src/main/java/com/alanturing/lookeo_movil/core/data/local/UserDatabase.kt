@@ -1,5 +1,6 @@
 package com.alanturing.lookeo_movil.core.data.local
 
+import androidx.room3.ColumnTypeConverters
 import androidx.room3.Database
 import androidx.room3.RoomDatabase
 
@@ -7,6 +8,7 @@ import androidx.room3.RoomDatabase
     entities = [UserEntity::class],
     version = 1
 )
+@ColumnTypeConverters(DateConverter::class)
 abstract class UserDatabase(): RoomDatabase() {
 
     abstract fun userDao(): UserDao

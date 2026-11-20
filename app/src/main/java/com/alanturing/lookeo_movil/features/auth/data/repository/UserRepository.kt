@@ -1,8 +1,6 @@
 package com.alanturing.lookeo_movil.features.auth.data.repository
 
 import com.alanturing.lookeo_movil.features.auth.data.model.User
-import com.alanturing.lookeo_movil.features.auth.data.remote.model.LoginResponse
-import com.alanturing.lookeo_movil.features.auth.data.remote.model.RegisterResponse
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.UserSession
 import kotlinx.coroutines.flow.Flow
 

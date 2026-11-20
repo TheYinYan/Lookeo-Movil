@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.alanturing.lookeo_movil.core.navigation.AppNavHost
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoMovilTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()

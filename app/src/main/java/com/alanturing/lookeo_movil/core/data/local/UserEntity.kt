@@ -15,18 +15,21 @@ data class UserEntity(
     val imageUrl: String?
 )
 
-fun UserEntity.toModel(): User {
-    return User(
-        id = this.id,
-        name = this.name,
-        email = this.email,
-        createdAt = this.createdAt,
-        imageUrl = this.imageUrl,
-    )
+fun UserEntity?.toModel(): User? {
+    return this?.let { entity ->
+        User(
+            id = entity.id,
+            name = entity.name,
+            email = entity.email,
+            createdAt = entity.createdAt,
+            imageUrl = entity.imageUrl
+        )
+    }
 }
 
-fun List<UserEntity>.toModel() = this.map(UserEntity::toModel)
-
+fun List<UserEntity>.toModel(): List<User> {
+    return this.map { it.toModel()!! }
+}
 
 fun User.toEntity(): UserEntity {
     return UserEntity(

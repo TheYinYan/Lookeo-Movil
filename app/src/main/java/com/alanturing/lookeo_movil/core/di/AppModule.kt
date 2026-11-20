@@ -1,5 +1,7 @@
 package com.alanturing.lookeo_movil.core.di
 
+import com.alanturing.lookeo_movil.features.auth.data.local.datasource.TokenLocalDataSource
+import com.alanturing.lookeo_movil.features.auth.data.local.datasource.TokenLocalDataSourceImpl
 import com.alanturing.lookeo_movil.features.auth.data.local.datasource.UserLocalDBDatasource
 import com.alanturing.lookeo_movil.features.auth.data.local.datasource.UserLocalDataSource
 import com.alanturing.lookeo_movil.features.auth.data.remote.UserRemoteDataSource
@@ -27,4 +29,10 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun bindsUserRepository(ds: UserRepositoryImpl): UserRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsTokenLocalDataSource(
+        ds: TokenLocalDataSourceImpl
+    ): TokenLocalDataSource
 }
