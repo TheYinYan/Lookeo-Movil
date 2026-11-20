@@ -10,7 +10,7 @@ data class UserEntity(
     val id: Long,
     val name: String,
     val email: String,
-    val imageUrl: String
+    val imageUrl: String?
 )
 
 fun UserEntity.toModel(): User {
