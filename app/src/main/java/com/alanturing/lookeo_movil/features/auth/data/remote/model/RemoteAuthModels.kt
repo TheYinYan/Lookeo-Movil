@@ -33,5 +33,5 @@ data class UserResponse(
     val id: Long,
     val email: String,
     val name: String,
-    val createdAt: Date,
+    val createdAt: String,
 )

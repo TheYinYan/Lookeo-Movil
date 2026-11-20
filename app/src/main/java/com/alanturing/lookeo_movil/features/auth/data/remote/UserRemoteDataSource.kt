@@ -1,5 +1,6 @@
 package com.alanturing.lookeo_movil.features.auth.data.remote
 
+import com.alanturing.lookeo_movil.features.auth.data.remote.dto.AuthResponse
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.LoginResponse
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.RegisterResponse
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.UserSession

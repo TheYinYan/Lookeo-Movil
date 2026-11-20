@@ -9,7 +9,6 @@ import retrofit2.Retrofit
 import retrofit2.create
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -17,7 +16,7 @@ class NetworkModule {
     @Singleton
     fun providesApi(): LookeoApi {
         val client = Retrofit.Builder()
-            .baseUrl("LA QUE DEFINAIS")
+            .baseUrl("http://10.0.2.2:3000/")
             .build()
         return client.create<LookeoApi>()
     }
