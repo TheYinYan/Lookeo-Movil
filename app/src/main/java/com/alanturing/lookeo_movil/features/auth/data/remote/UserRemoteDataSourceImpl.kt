@@ -15,13 +15,6 @@ class UserRemoteDataSourceImpl
     private val api: LookeoApi
 ) : UserRemoteDataSource {
 
-    override suspend fun readAllUser(): List<User> {
-        return emptyList()
-    }
-
-    override suspend fun readUserById(id: Long): User? {
-        return null
-    }
 
     override suspend fun register(email: String, name: String, password: String): Result<UserSession> {
         val body = RegisterBody(email, name, password)
