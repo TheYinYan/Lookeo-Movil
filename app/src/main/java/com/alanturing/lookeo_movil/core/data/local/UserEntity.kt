@@ -1,4 +1,4 @@
-package com.alanturing.lookeo_movil.features.auth.data.local.model
+package com.alanturing.lookeo_movil.core.data.local
 
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey

@@ -1,11 +1,9 @@
 package com.alanturing.lookeo_movil.features.auth.data.repository
 
-import com.alanturing.lookeo_movil.features.auth.data.local.TokenLocalDataSource
-import com.alanturing.lookeo_movil.features.auth.data.local.UserLocalDataSource
+import com.alanturing.lookeo_movil.features.auth.data.local.datasource.TokenLocalDataSource
+import com.alanturing.lookeo_movil.features.auth.data.local.datasource.UserLocalDataSource
 import com.alanturing.lookeo_movil.features.auth.data.model.User
 import com.alanturing.lookeo_movil.features.auth.data.remote.UserRemoteDataSource
-import com.alanturing.lookeo_movil.features.auth.data.remote.model.LoginResponse
-import com.alanturing.lookeo_movil.features.auth.data.remote.model.RegisterResponse
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.UserSession
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking

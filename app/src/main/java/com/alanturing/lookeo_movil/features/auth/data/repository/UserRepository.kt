@@ -14,6 +14,5 @@ interface UserRepository {
     suspend fun readUserById(id: Long): User?
 
     suspend fun login(email: String, password: String): Result<UserSession>
-
     suspend fun register(email: String, name: String, password: String): Result<UserSession>
 }

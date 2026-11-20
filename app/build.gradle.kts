@@ -48,6 +48,7 @@ dependencies {
     ksp("androidx.room3:room3-compiler:3.0.3")
 
     // Splash Screen
+    implementation(libs.androidx.datastore.preferences)
     implementation("androidx.core:core-splashscreen:1.2.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation(platform(libs.androidx.compose.bom))
