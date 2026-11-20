@@ -21,6 +21,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,18 +34,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
-import com.alanturing.lookeo_movil.core.ui.theme.InterBold
-import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun ProfileScreen(
@@ -106,7 +105,8 @@ fun ProfileScreen(
             title = {
                 Text(
                     text = "¿Seguro que quieres cerrar sesión?",
-                    fontFamily = PlayfairDisplayRegular,
+                    style = MaterialTheme.typography.displayMedium,
+//                    fontFamily = PlayfairDisplayRegular,
                     color = LookeoWhite,
                     textAlign = TextAlign.Center
                 )
@@ -114,7 +114,8 @@ fun ProfileScreen(
             text = {
                 Text(
                     text = "Tu armario y tus conjuntos seguirán aquí cuando vuelvas.",
-                    fontFamily = InterRegular,
+                    style = MaterialTheme.typography.bodyMedium,
+//                    fontFamily = InterRegular,
                     color = LookeoGray,
                     textAlign = TextAlign.Center
                 )
@@ -131,7 +132,7 @@ fun ProfileScreen(
                         contentColor = LookeoBlack
                     )
                 ) {
-                    Text("Cerrar sesión", fontFamily = InterBold)
+                    Text("Cerrar sesión", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold,)
                 }
             }
         )

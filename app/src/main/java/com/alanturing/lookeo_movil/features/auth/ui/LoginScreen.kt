@@ -33,9 +33,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,17 +46,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
-import com.alanturing.lookeo_movil.core.ui.theme.InterBold
+
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
-import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkGrey
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
-
 @Composable
 fun LoginScreen(
     onNavigateToHome: () -> Unit,
@@ -74,8 +74,9 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.app_logo),
-                    fontFamily = PlayfairDisplayRegular,
-                    fontSize = 50.sp,
+                    style = MaterialTheme.typography.displayMedium,
+//                    fontFamily = PlayfairDisplayRegular,
+//                    fontSize = 50.sp,
                     color = LookeoGold,
                 )
             }
@@ -85,6 +86,7 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(LookeoBlack)
+                .imePadding()
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
                 .padding(top = 10.dp),
@@ -108,8 +110,9 @@ fun LoginScreen(
 
             Text(
                 text = stringResource(id = R.string.login_welcome),
-                fontFamily = InterRegular,
-                fontSize = 18.sp,
+                style = MaterialTheme.typography.bodyMedium,
+//                fontFamily = InterRegular,
+//                fontSize = 18.sp,
                 color = LookeoWhite
             )
 
@@ -124,8 +127,9 @@ fun LoginScreen(
 
             Text(
                 text = stringResource(id = R.string.login_user_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
+                style = MaterialTheme.typography.bodyMedium,
+                //fontFamily = InterRegular,
+                //fontSize = 15.sp,
                 color = LookeoGray
             )
 
@@ -146,8 +150,9 @@ fun LoginScreen(
 
             Text(
                 text = stringResource(id = R.string.login_password_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
+                style = MaterialTheme.typography.labelMedium,
+                //fontFamily = InterRegular,
+                //fontSize = 15.sp,
                 color = LookeoGray
             )
 
@@ -196,8 +201,10 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.login_button),
-                    fontFamily = InterBold,
-                    fontSize = 15.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    //fontFamily = InterBold,
+                    //fontSize = 15.sp,
                     color = LookeoBlack
                 )
             }
@@ -217,14 +224,17 @@ fun onRegister(onNavigateToRegister: () -> Unit) {
     ){
         Text(
             text = stringResource(id = R.string.login_register_button) +" ",
-            fontFamily = InterRegular,
-            fontSize = 15.sp,
+            style = MaterialTheme.typography.bodyMedium,
+//            fontFamily = InterRegular,
+//            fontSize = 15.sp,
             color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.login_register_button_link),
-            fontFamily = InterBold,
-            fontSize = 15.sp,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+//            fontFamily = InterBold,
+//            fontSize = 15.sp,
             color = LookeoGold,
             modifier = Modifier.clickable {
                 onNavigateToRegister()
@@ -241,8 +251,9 @@ fun ForgotPasswordLink() {
     ) {
         Text(
             text = stringResource(id = R.string.login_forgot_password),
-            fontFamily = InterRegular,
-            fontSize = 14.sp,
+            style = MaterialTheme.typography.bodyMedium,
+//            fontFamily = InterRegular,
+//            fontSize = 14.sp,
             color = LookeoGray,
             modifier = Modifier.clickable {
                 // TODO Falta implementar Restaurar contraseña

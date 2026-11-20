@@ -1,5 +1,6 @@
     package com.alanturing.lookeo_movil.features.auth.ui
 
+    import androidx.compose.foundation.text.input.TextFieldState
     import androidx.lifecycle.ViewModel
     import androidx.lifecycle.viewModelScope
     import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,8 @@
     class RegisterViewModel @Inject constructor() : ViewModel(){
         private val _state: MutableStateFlow<RegisterUiState> =
         MutableStateFlow(value = RegisterUiState.Loading)
+
+        val nameState = TextFieldState()
 
         private val _data: MutableStateFlow<RegisterUiData> =
             MutableStateFlow(value = RegisterUiData())

@@ -24,10 +24,6 @@ import com.alanturing.lookeo_movil.core.ui.components.LookeoBottomBar
 import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
-import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
-import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
-import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun WardrobeScreen(

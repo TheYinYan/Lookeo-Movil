@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -23,6 +25,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -39,19 +42,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alanturing.lookeo_movil.R
-import com.alanturing.lookeo_movil.core.ui.theme.InterBold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
-import com.alanturing.lookeo_movil.core.ui.theme.InterRegular
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkGrey
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun RegisterScreen(
@@ -75,8 +76,9 @@ fun RegisterScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.app_logo),
-                    fontFamily = PlayfairDisplayRegular,
-                    fontSize = 50.sp,
+                    style = MaterialTheme.typography.displayMedium,
+//                    fontFamily = PlayfairDisplayRegular,
+//                    fontSize = 50.sp,
                     color = LookeoGold,
                 )
             }
@@ -89,6 +91,7 @@ fun RegisterScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
                 .padding(top = 10.dp)
+                .imePadding()
                 .verticalScroll(rememberScrollState()),
 
             verticalArrangement = Arrangement.Center
@@ -115,16 +118,23 @@ fun RegisterScreen(
                 keyboardType = KeyboardType.Text
             )
 
-            Text(
-                text = stringResource(id = R.string.register_user_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
-                color = LookeoGray,
-            )
+            val isNameEmpty = viewModel.nameState.text.toString().isEmpty()
             TextField(
+                label =  {
+                    Text(
+                        text = stringResource(id = R.string.register_user_label),
+                        style = MaterialTheme.typography.bodyMedium,
+//                        fontFamily = InterRegular,
+//                        fontSize = 15.sp,
+                        color = LookeoGray,
+                    )
+                },
+                state = viewModel.nameState,
                 modifier = textFieldsModifier,
-                value = data.userName,
-                onValueChange = { viewModel.createName(it) },
+                isError = isNameEmpty,
+                lineLimits = TextFieldLineLimits.SingleLine,
+                //value = data.userName,
+                //onValueChange = { viewModel.createName(it) },
                 placeholder = { Text(stringResource(id = R.string.register_user_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                 shape = RoundedCornerShape(12.dp),
@@ -137,8 +147,9 @@ fun RegisterScreen(
 
             Text(
                 text = stringResource(id = R.string.register_email_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
+                style = MaterialTheme.typography.bodyMedium,
+//                fontFamily = InterRegular,
+//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -158,8 +169,9 @@ fun RegisterScreen(
 
             Text(
                 text = stringResource(id = R.string.register_password_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
+                style = MaterialTheme.typography.bodyMedium,
+//                fontFamily = InterRegular,
+//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -178,8 +190,9 @@ fun RegisterScreen(
 
             Text(
                 text = stringResource(id = R.string.register_password_confirm_label),
-                fontFamily = InterRegular,
-                fontSize = 15.sp,
+                style = MaterialTheme.typography.bodyMedium,
+//                fontFamily = InterRegular,
+//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -196,8 +209,9 @@ fun RegisterScreen(
             )
             Text(
                 text = stringResource(id = R.string.register_password_characters),
-                fontFamily = InterRegular,
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.bodyMedium,
+//                fontFamily = InterRegular,
+//                fontSize = 12.sp,
                 color = LookeoGray,
             )
             Spacer(Modifier.height(8.dp))
@@ -215,26 +229,30 @@ fun RegisterScreen(
                 )
                 Text(
                     text = stringResource(id = R.string.register_accept) + " ",
-                    fontFamily = InterRegular,
-                    fontSize = 11.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+//                    fontFamily = InterRegular,
+//                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_terms) + " ",
-                    fontFamily = InterRegular,
-                    fontSize = 11.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+//                    fontFamily = InterRegular,
+//                    fontSize = 11.sp,
                     color = LookeoGold
                 )
                 Text(
                     text = stringResource(id = R.string.register_and) + " ",
-                    fontFamily = InterRegular,
-                    fontSize = 11.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+//                    fontFamily = InterRegular,
+//                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_privacy),
-                    fontFamily = InterRegular,
-                    fontSize = 11.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+//                    fontFamily = InterRegular,
+//                    fontSize = 11.sp,
                     color = LookeoGold
                 )
             }
@@ -251,8 +269,10 @@ fun RegisterScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.register_button),
-                    fontFamily = InterRegular,
-                    fontSize = 15.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+//                    fontFamily = InterRegular,
+//                    fontSize = 15.sp,
                     color = LookeoBlack
                 )
             }
@@ -273,14 +293,17 @@ fun OnLogin(onNavigateToLogin: () -> Unit) {
     ) {
         Text(
             text = stringResource(id = R.string.register_login_button) + " ",
-            fontFamily = InterRegular,
-            fontSize = 15.sp,
+            style = MaterialTheme.typography.bodyMedium,
+//            fontFamily = InterRegular,
+//            fontSize = 15.sp,
             color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.register_login_button_link),
-            fontFamily = InterBold,
-            fontSize = 15.sp,
+            style = MaterialTheme.typography.bodyMedium,
+
+//            fontFamily = InterBold,
+//            fontSize = 15.sp,
             color = LookeoGold,
             modifier = Modifier.clickable {
                 onNavigateToLogin()

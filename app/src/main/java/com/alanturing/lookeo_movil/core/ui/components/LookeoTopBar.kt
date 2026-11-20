@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +23,6 @@ import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
-import com.alanturing.lookeo_movil.core.ui.theme.PlayfairDisplayRegular
 
 @Composable
 fun LookeoTopBar(
@@ -49,8 +49,9 @@ fun LookeoTopBar(
         }
         Text(
             text = stringResource(id = R.string.app_logo),
-            fontFamily = PlayfairDisplayRegular,
-            fontSize = 50.sp,
+            style = MaterialTheme.typography.displayMedium,
+            //fontFamily = PlayfairDisplayRegular,
+            //fontSize = 50.sp,
             color = LookeoGold,
         )
     }
