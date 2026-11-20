@@ -24,6 +24,11 @@ data class LoginResponse(
     val token: String,
 )
 
+data class UserSession(
+    val user: User,
+    val token: String
+)
+
 data class UserResponse(
     val id: Long,
     val email: String,

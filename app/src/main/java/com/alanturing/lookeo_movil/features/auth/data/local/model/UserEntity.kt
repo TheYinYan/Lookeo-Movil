@@ -3,6 +3,7 @@ package com.alanturing.lookeo_movil.features.auth.data.local.model
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import com.alanturing.lookeo_movil.features.auth.data.model.User
+import java.util.Date
 
 @Entity(tableName = "user")
 data class UserEntity(
@@ -10,6 +11,7 @@ data class UserEntity(
     val id: Long,
     val name: String,
     val email: String,
+    val createdAt: Date,
     val imageUrl: String?
 )
 
@@ -18,6 +20,7 @@ fun UserEntity.toModel(): User {
         id = this.id,
         name = this.name,
         email = this.email,
+        createdAt = this.createdAt,
         imageUrl = this.imageUrl,
     )
 }
@@ -30,6 +33,7 @@ fun User.toEntity(): UserEntity {
         id = this.id,
         name= this.name,
         email = this.email,
+        createdAt = this.createdAt,
         imageUrl = this.imageUrl
     )
 }
