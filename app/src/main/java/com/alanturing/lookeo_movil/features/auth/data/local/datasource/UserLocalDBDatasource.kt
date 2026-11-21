@@ -18,6 +18,12 @@ class UserLocalDBDatasource @Inject constructor(
         }
     }
 
+    override fun observeUser(): Flow<User?> {
+        return dao.observeUser().map { entity ->
+            entity.toModel()
+        }
+    }
+
     override suspend fun saveUser(user: User) {
         val entity = user.toEntity()
         dao.create(entity)
