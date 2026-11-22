@@ -34,6 +34,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.IconButton
@@ -86,10 +88,11 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(LookeoBlack)
-                .imePadding()
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
-                .padding(top = 10.dp),
+                .padding(top = 10.dp)
+                .imePadding()
+                .verticalScroll(rememberScrollState()),
 
             verticalArrangement = Arrangement.Top
         ) {
