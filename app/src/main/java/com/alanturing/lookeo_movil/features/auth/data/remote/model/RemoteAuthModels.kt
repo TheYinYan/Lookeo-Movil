@@ -30,7 +30,7 @@ data class UserSession(
 )
 
 data class UserResponse(
-    val id: Long,
+    val id: Int,
     val email: String,
     val name: String,
     val createdAt: String,

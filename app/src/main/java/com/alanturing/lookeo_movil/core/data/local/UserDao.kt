@@ -16,5 +16,5 @@ interface UserDao {
     fun observeUser(): Flow<UserEntity?>
 
     @Query("SELECT * FROM user WHERE id = :id")
-    fun observeOneById(id: Long): Flow<UserEntity?>
+    fun observeOneById(id: Int): Flow<UserEntity?>
 }

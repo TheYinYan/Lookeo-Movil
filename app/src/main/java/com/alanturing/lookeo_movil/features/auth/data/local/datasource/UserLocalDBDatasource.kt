@@ -12,7 +12,7 @@ class UserLocalDBDatasource @Inject constructor(
     private val dao: UserDao
 ): UserLocalDataSource {
 
-    override fun observeUser(id: Long): Flow<User?> {
+    override fun observeUser(id: Int): Flow<User?> {
         return dao.observeOneById(id).map { entity ->
             entity.toModel()
         }

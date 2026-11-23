@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    fun observeUser(id: Long): Flow<User?>
+    fun observeUser(id: Int): Flow<User?>
 
     suspend fun login(email: String, password: String): Result<UserSession>
     suspend fun register(email: String, name: String, password: String): Result<UserSession>

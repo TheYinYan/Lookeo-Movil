@@ -14,7 +14,7 @@ class UserRepositoryImpl @Inject constructor(
     private val _tokenLocalDataSource: TokenLocalDataSource,
 ) : UserRepository {
 
-    override fun observeUser(id: Long): Flow<User?> = _localDataSource.observeUser(id)
+    override fun observeUser(id: Int): Flow<User?> = _localDataSource.observeUser(id)
 
     override suspend fun login(email: String, password: String): Result<UserSession>  {
         val result = _remoteDataSource.login(email, password)

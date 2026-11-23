@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserLocalDataSource {
 
-    fun observeUser(id: Long): Flow<User?>
+    fun observeUser(id: Int): Flow<User?>
 
     fun observeUser(): Flow<User?>
 
