@@ -120,8 +120,6 @@ fun LoginScreen(
             Text(
                 text = stringResource(id = R.string.login_welcome),
                 style = MaterialTheme.typography.bodyMedium,
-//                fontFamily = InterRegular,
-//                fontSize = 18.sp,
                 color = LookeoWhite
             )
 
