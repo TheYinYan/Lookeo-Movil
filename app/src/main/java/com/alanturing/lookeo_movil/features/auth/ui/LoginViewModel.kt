@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel()
 {
     private val _state: MutableStateFlow<LoginUiState> =
-        MutableStateFlow(value = LoginUiState.Loading)
+        MutableStateFlow(value = LoginUiState.Idle)
 
     private val _date: MutableStateFlow<LoginUiDate> =
         MutableStateFlow(value = LoginUiDate())
@@ -26,12 +26,6 @@ class LoginViewModel @Inject constructor(
 
     val date: StateFlow<LoginUiDate>
         get() = _date.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            _state.value = LoginUiState.Success
-        }
-    }
 
     fun login() {
         viewModelScope.launch {
@@ -70,6 +64,7 @@ class LoginViewModel @Inject constructor(
 sealed class LoginUiState {
     object Loading: LoginUiState()
     object Success : LoginUiState()
+    object Idle : LoginUiState()
     data class Error(val message: String) : LoginUiState()
 }
 
