@@ -17,7 +17,7 @@ class NetworkModule {
     @Singleton
     fun providesApi(): LookeoApi {
         val client = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/")
+            .baseUrl("https://server-lookeo.vercel.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return client.create<LookeoApi>()
