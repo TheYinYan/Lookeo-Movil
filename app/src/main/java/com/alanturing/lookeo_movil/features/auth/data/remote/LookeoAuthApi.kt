@@ -13,10 +13,10 @@ import retrofit2.http.POST
 
 interface LookeoAuthApi {
 
-    @POST("api/users/register/")
+    @POST("api/auth/register/")
     suspend fun register(@Body body: RegisterBody): AuthResponse
 
-    @POST("api/users/login/")
+    @POST("api/auth/login/")
     suspend fun login(@Body body: LoginBody): AuthResponse
 
 

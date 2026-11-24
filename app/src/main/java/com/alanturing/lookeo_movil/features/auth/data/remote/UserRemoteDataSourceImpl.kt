@@ -6,6 +6,8 @@ import com.alanturing.lookeo_movil.features.auth.data.remote.model.LoginBody
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.RegisterBody
 import com.alanturing.lookeo_movil.features.auth.data.remote.model.UserSession
 import com.alanturing.lookeo_movil.features.auth.data.remote.dto.UserResponse
+import org.json.JSONObject
+import retrofit2.HttpException
 import java.util.Date
 import java.time.Instant
 import javax.inject.Inject
@@ -30,13 +32,22 @@ class UserRemoteDataSourceImpl
 
     override suspend fun login(email: String, password: String): Result<UserSession> {
         val body = LoginBody(email, password)
-        return runCatching {
+
+        return try {
             val response = api.login(body)
 
-            UserSession(
-                user = response.user.toModel(),
-                token = response.token
+            Result.success(
+                UserSession(
+                    user = response.user.toModel(),
+                    token = response.token
+                )
             )
+        } catch (error: HttpException) {
+            Result.failure(
+                Exception("Error al iniciar sesión", error)
+            )
+        } catch (error: Exception) {
+            Result.failure(error)
         }
     }
 }
@@ -50,3 +61,4 @@ fun UserResponse.toModel(): User {
         imageUrl = null
     )
 }
+
