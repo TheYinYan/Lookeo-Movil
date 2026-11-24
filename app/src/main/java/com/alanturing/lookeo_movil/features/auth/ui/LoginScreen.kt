@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.alanturing.lookeo_movil.R
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material.icons.Icons
@@ -41,6 +40,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -50,8 +50,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.sp
-
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
@@ -62,7 +61,17 @@ fun LoginScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToRegister: () -> Unit
 ) {
-    val viewModel: LoginViewModel = viewModel()
+    val viewModel: LoginViewModel = hiltViewModel()
+
+    val date by viewModel.date.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val errorMessage = (state as? LoginUiState.Error)?.message
+
+    LaunchedEffect(state) {
+        if (state is LoginUiState.Success) {
+            onNavigateToHome()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -77,8 +86,6 @@ fun LoginScreen(
                 Text(
                     text = stringResource(id = R.string.app_logo),
                     style = MaterialTheme.typography.displayMedium,
-//                    fontFamily = PlayfairDisplayRegular,
-//                    fontSize = 50.sp,
                     color = LookeoGold,
                 )
             }
@@ -96,7 +103,6 @@ fun LoginScreen(
 
             verticalArrangement = Arrangement.Top
         ) {
-            val date by viewModel.date.collectAsStateWithLifecycle()
 
             Image(
                 painter = painterResource(id = R.drawable.login_img),
@@ -131,8 +137,6 @@ fun LoginScreen(
             Text(
                 text = stringResource(id = R.string.login_user_label),
                 style = MaterialTheme.typography.bodyMedium,
-                //fontFamily = InterRegular,
-                //fontSize = 15.sp,
                 color = LookeoGray
             )
 
@@ -189,12 +193,20 @@ fun LoginScreen(
                 )
             )
 
+            if (errorMessage != null) {
+                Text(
+                    text = errorMessage,
+                    color = Color.Red,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
             ForgotPasswordLink()
 
             Spacer(Modifier.height(26.dp))
 
             Button(
-                onClick = onNavigateToHome,
+                onClick = { viewModel.login() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LookeoGold,
                     contentColor = LookeoBlack
@@ -212,13 +224,13 @@ fun LoginScreen(
                 )
             }
 
-            onRegister(onNavigateToRegister)
+            OnRegister(onNavigateToRegister)
         }
     }
 }
 
 @Composable
-fun onRegister(onNavigateToRegister: () -> Unit) {
+fun OnRegister(onNavigateToRegister: () -> Unit) {
     Spacer(Modifier.height(16.dp))
     Row (
         modifier = Modifier.fillMaxWidth(),
@@ -228,16 +240,12 @@ fun onRegister(onNavigateToRegister: () -> Unit) {
         Text(
             text = stringResource(id = R.string.login_register_button) +" ",
             style = MaterialTheme.typography.bodyMedium,
-//            fontFamily = InterRegular,
-//            fontSize = 15.sp,
             color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.login_register_button_link),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
-//            fontFamily = InterBold,
-//            fontSize = 15.sp,
             color = LookeoGold,
             modifier = Modifier.clickable {
                 onNavigateToRegister()
@@ -255,8 +263,6 @@ fun ForgotPasswordLink() {
         Text(
             text = stringResource(id = R.string.login_forgot_password),
             style = MaterialTheme.typography.bodyMedium,
-//            fontFamily = InterRegular,
-//            fontSize = 14.sp,
             color = LookeoGray,
             modifier = Modifier.clickable {
                 // TODO Falta implementar Restaurar contraseña
