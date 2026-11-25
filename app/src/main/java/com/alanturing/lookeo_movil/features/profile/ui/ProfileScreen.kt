@@ -39,17 +39,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+import com.alanturing.lookeo_movil.features.auth.ui.RegisterViewModel
 
 @Composable
 fun ProfileScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToLogin: () -> Unit
 ) {
+    val viewModel: ProfileViewModel = hiltViewModel()
     var confirmLogout by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -125,7 +129,9 @@ fun ProfileScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         confirmLogout = false
-                        onNavigateToLogin()
+                        viewModel.logout {
+                            onNavigateToLogin()
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = LookeoGold,
