@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,13 +25,16 @@ import com.alanturing.lookeo_movil.core.ui.components.LookeoBottomBar
 import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
 
 @Composable
 fun WardrobeScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToOutfits: () -> Unit,
     onNavigateToFavorites: () -> Unit,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onNavigateToNewItem: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -53,7 +57,22 @@ fun WardrobeScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            Text("¡Bienvenido al Armario!")
+            Text("Tu colección personal", color = LookeoGold, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Mi Ropero", color = LookeoWhite, style = MaterialTheme.typography.displaySmall, modifier = Modifier.padding(bottom = 12.dp))
+            Text("x prendas. Infinitas posibilidades.", color = LookeoGray, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = onNavigateToNewItem,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = LookeoGold,
+                    contentColor = LookeoBlack
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Nueva Prenda")
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 

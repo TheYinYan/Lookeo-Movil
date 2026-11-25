@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,7 +56,11 @@ fun OutfitsScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            Text("Mis Outfits")
+            Text("Tu archivo de estilo", color = LookeoGold, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Mis Outfits", color = LookeoWhite, style = MaterialTheme.typography.displaySmall, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Los looks que siempre funcionan, a mano.", color = LookeoGray, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
+
+            Spacer(modifier = Modifier.height(16.dp))
 
         }
     }

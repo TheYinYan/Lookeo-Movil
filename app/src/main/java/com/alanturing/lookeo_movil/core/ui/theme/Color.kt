@@ -11,6 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val LookeoBlack = Color(0xFF000000)
+val LookeoDarkSurface = Color(0xFF1E1E1E)
 val LookeoGold = Color(0xFFD4AF37)
 val LookeoGray = Color(0xFFA6A6A0)
 val LookeoWhite = Color(0xFFFFFFFF)
