@@ -126,7 +126,6 @@
 
 				result.fold(
 					onSuccess = {
-						// El repo ya guarda usuario en Room + token en DataStore
 						_uiState.update { it.copy(isLoading = false, isSuccess = true) }
 					},
 					onFailure = { error ->
