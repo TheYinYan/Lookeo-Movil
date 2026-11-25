@@ -26,12 +26,6 @@
         val data: StateFlow<RegisterUiData>
             get() = _data.asStateFlow()
 
-        init {
-            viewModelScope.launch {
-                _state.value = RegisterUiState.Success
-            }
-        }
-
         fun createName(newName: String) {
             _data.value = _data.value.copy(userName = newName)
         }
@@ -42,6 +36,10 @@
 
         fun createPassword(newPassword: String) {
             _data.value = _data.value.copy(password = newPassword)
+        }
+
+        fun createConfirmPassword(newConfirmPassword: String) {
+            _data.value = _data.value.copy(confirmPassword = newConfirmPassword)
         }
     }
 

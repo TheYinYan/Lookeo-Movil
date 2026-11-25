@@ -15,16 +15,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,6 +46,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -64,6 +68,14 @@ fun RegisterScreen(
         mutableStateOf(false)
     }
 
+    var passwordVisible by remember {
+        mutableStateOf(false)
+    }
+
+    var confirmPasswordVisible by remember {
+        mutableStateOf(false)
+    }
+
     Scaffold(
         topBar = {
             Row(
@@ -77,8 +89,6 @@ fun RegisterScreen(
                 Text(
                     text = stringResource(id = R.string.app_logo),
                     style = MaterialTheme.typography.displayMedium,
-//                    fontFamily = PlayfairDisplayRegular,
-//                    fontSize = 50.sp,
                     color = LookeoGold,
                 )
             }
@@ -97,6 +107,13 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Center
         ) {
             val data by viewModel.data.collectAsStateWithLifecycle()
+
+            val isFormValid = data.userName.isNotEmpty() &&
+                    data.email.isNotEmpty() &&
+                    data.password.isNotEmpty() &&
+                    data.confirmPassword.isNotEmpty() &&
+                    data.password == data.confirmPassword &&
+                    acceptedTerms
 
             Image(
                 painter = painterResource(id = R.drawable.register_img),
@@ -118,23 +135,18 @@ fun RegisterScreen(
                 keyboardType = KeyboardType.Text
             )
 
-            val isNameEmpty = viewModel.nameState.text.toString().isEmpty()
+            val isNameEmpty = data.userName.isEmpty()
+
+            Text(
+                text = stringResource(id = R.string.register_user_label),
+                style = MaterialTheme.typography.bodyMedium,
+                color = LookeoGray,
+            )
             TextField(
-                label =  {
-                    Text(
-                        text = stringResource(id = R.string.register_user_label),
-                        style = MaterialTheme.typography.bodyMedium,
-//                        fontFamily = InterRegular,
-//                        fontSize = 15.sp,
-                        color = LookeoGray,
-                    )
-                },
-                state = viewModel.nameState,
                 modifier = textFieldsModifier,
+                value = data.userName,
+                onValueChange = { viewModel.createName(it) },
                 isError = isNameEmpty,
-                lineLimits = TextFieldLineLimits.SingleLine,
-                //value = data.userName,
-                //onValueChange = { viewModel.createName(it) },
                 placeholder = { Text(stringResource(id = R.string.register_user_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                 shape = RoundedCornerShape(12.dp),
@@ -148,8 +160,6 @@ fun RegisterScreen(
             Text(
                 text = stringResource(id = R.string.register_email_label),
                 style = MaterialTheme.typography.bodyMedium,
-//                fontFamily = InterRegular,
-//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
@@ -170,13 +180,28 @@ fun RegisterScreen(
             Text(
                 text = stringResource(id = R.string.register_password_label),
                 style = MaterialTheme.typography.bodyMedium,
-//                fontFamily = InterRegular,
-//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
                 modifier = textFieldsModifier,
                 value = data.password,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
+                ),
+                visualTransformation = if (passwordVisible) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            if (passwordVisible) Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff,
+                            contentDescription = null
+                        )
+                    }
+                },
                 onValueChange = { viewModel.createPassword(it) },
                 placeholder = { Text(stringResource(id = R.string.register_password_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
@@ -191,14 +216,20 @@ fun RegisterScreen(
             Text(
                 text = stringResource(id = R.string.register_password_confirm_label),
                 style = MaterialTheme.typography.bodyMedium,
-//                fontFamily = InterRegular,
-//                fontSize = 15.sp,
                 color = LookeoGray,
             )
             TextField(
                 modifier = textFieldsModifier,
-                value = data.password,
-                onValueChange = { viewModel.createPassword(it) },
+                value = data.confirmPassword,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
+                ),
+                visualTransformation = if (passwordVisible) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
+                onValueChange = { viewModel.createConfirmPassword(it) },
                 placeholder = { Text(stringResource(id = R.string.register_password_confirm_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 shape = RoundedCornerShape(12.dp),
@@ -210,8 +241,6 @@ fun RegisterScreen(
             Text(
                 text = stringResource(id = R.string.register_password_characters),
                 style = MaterialTheme.typography.bodyMedium,
-//                fontFamily = InterRegular,
-//                fontSize = 12.sp,
                 color = LookeoGray,
             )
             Spacer(Modifier.height(8.dp))
@@ -230,35 +259,27 @@ fun RegisterScreen(
                 Text(
                     text = stringResource(id = R.string.register_accept) + " ",
                     style = MaterialTheme.typography.bodyMedium,
-//                    fontFamily = InterRegular,
-//                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_terms) + " ",
                     style = MaterialTheme.typography.bodyMedium,
-//                    fontFamily = InterRegular,
-//                    fontSize = 11.sp,
                     color = LookeoGold
                 )
                 Text(
                     text = stringResource(id = R.string.register_and) + " ",
                     style = MaterialTheme.typography.bodyMedium,
-//                    fontFamily = InterRegular,
-//                    fontSize = 11.sp,
                     color = LookeoGray
                 )
                 Text(
                     text = stringResource(id = R.string.register_privacy),
                     style = MaterialTheme.typography.bodyMedium,
-//                    fontFamily = InterRegular,
-//                    fontSize = 11.sp,
                     color = LookeoGold
                 )
             }
 
             Button(
-                enabled = acceptedTerms,
+                enabled = isFormValid,
                 onClick = onNavigateToHome,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LookeoGold,
@@ -271,8 +292,6 @@ fun RegisterScreen(
                     text = stringResource(id = R.string.register_button),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
-//                    fontFamily = InterRegular,
-//                    fontSize = 15.sp,
                     color = LookeoBlack
                 )
             }
@@ -294,16 +313,11 @@ fun OnLogin(onNavigateToLogin: () -> Unit) {
         Text(
             text = stringResource(id = R.string.register_login_button) + " ",
             style = MaterialTheme.typography.bodyMedium,
-//            fontFamily = InterRegular,
-//            fontSize = 15.sp,
             color = LookeoGray
         )
         Text(
             text = stringResource(id = R.string.register_login_button_link),
             style = MaterialTheme.typography.bodyMedium,
-
-//            fontFamily = InterBold,
-//            fontSize = 15.sp,
             color = LookeoGold,
             modifier = Modifier.clickable {
                 onNavigateToLogin()
