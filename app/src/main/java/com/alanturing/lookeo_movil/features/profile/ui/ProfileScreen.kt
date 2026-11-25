@@ -109,7 +109,7 @@ fun ProfileScreen(
             title = {
                 Text(
                     text = "¿Seguro que quieres cerrar sesión?",
-                    style = MaterialTheme.typography.displayMedium,
+                    style = MaterialTheme.typography.displaySmall,
 //                    fontFamily = PlayfairDisplayRegular,
                     color = LookeoWhite,
                     textAlign = TextAlign.Center
