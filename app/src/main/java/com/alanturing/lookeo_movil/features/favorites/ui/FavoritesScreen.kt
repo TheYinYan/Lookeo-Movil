@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,9 +56,9 @@ fun FavoritesScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            Text("Mis Favoritos")
-
-            Spacer(modifier = Modifier.height(16.dp))
+            Text("TU SELECCIÓN PERSONAL", color = LookeoGold, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Favoritos", color = LookeoWhite, style = MaterialTheme.typography.displaySmall, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Tus prendas y looks preferidos, a mano.", color = LookeoGray, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(bottom = 12.dp))
 
             Button(
                 onClick = onNavigateToOutfits,

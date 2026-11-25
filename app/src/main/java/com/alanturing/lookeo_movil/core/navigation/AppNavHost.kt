@@ -18,6 +18,7 @@ import com.alanturing.lookeo_movil.features.profile.ui.ProfileScreen
 import com.alanturing.lookeo_movil.features.outfits.ui.OutfitsScreen
 import com.alanturing.lookeo_movil.features.wardrobe.ui.WardrobeScreen
 import com.alanturing.lookeo_movil.features.favorites.ui.FavoritesScreen
+import com.alanturing.lookeo_movil.features.items.ui.NewItemScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -79,7 +80,14 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     onNavigateToHome = { navController.navigate(Routes.Home) },
                     onNavigateToProfile = { navController.navigate(Routes.Profile) },
                     onNavigateToOutfits = { navController.navigate(Routes.Outfits) },
-                    onNavigateToFavorites = { navController.navigate(Routes.Favorites) }
+                    onNavigateToFavorites = { navController.navigate(Routes.Favorites) },
+                    onNavigateToNewItem = {navController.navigate(Routes.NewItem)}
+                )
+            }
+
+            composable<Routes.NewItem> {
+                NewItemScreen(
+                    onNavigateToWardrobe = { navController.navigate(Routes.Wardrobe) },
                 )
             }
 
