@@ -10,4 +10,6 @@ interface UserLocalDataSource {
     fun observeUser(): Flow<User?>
 
     suspend fun saveUser(user: User)
+
+	suspend fun clearUsers()
 }

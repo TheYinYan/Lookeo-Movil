@@ -42,6 +42,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     private suspend fun saveSession(session: UserSession) {
+		_localDataSource.clearUsers()
         _localDataSource.saveUser(session.user)
         _tokenLocalDataSource.saveToken(session.token)
     }

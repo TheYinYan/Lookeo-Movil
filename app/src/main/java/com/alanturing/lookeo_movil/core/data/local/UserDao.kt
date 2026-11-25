@@ -17,4 +17,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE id = :id")
     fun observeOneById(id: Int): Flow<UserEntity?>
+
+	@Query("DELETE FROM user")
+	suspend fun clearAll()
 }

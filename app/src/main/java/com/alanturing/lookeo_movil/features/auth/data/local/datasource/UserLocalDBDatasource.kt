@@ -28,4 +28,8 @@ class UserLocalDBDatasource @Inject constructor(
         val entity = user.toEntity()
         dao.create(entity)
     }
+
+	override suspend fun clearUsers() {
+		dao.clearAll()
+	}
 }
