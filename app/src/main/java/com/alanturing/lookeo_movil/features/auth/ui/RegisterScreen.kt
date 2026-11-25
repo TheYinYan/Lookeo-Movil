@@ -51,30 +51,35 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alanturing.lookeo_movil.R
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkGrey
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 @Composable
 fun RegisterScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
-    val viewModel: RegisterViewModel = viewModel()
-    var acceptedTerms by remember {
-        mutableStateOf(false)
+    val viewModel: RegisterViewModel = hiltViewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+	val errorMessage = uiState.errorMessageResId?.let { stringResource(id = it) }
+		?: uiState.errorMessage
+
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
+            onNavigateToHome()
+            viewModel.resetSuccessState()
+        }
     }
 
-    var passwordVisible by remember {
-        mutableStateOf(false)
-    }
-
-    var confirmPasswordVisible by remember {
-        mutableStateOf(false)
-    }
+    var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -106,14 +111,6 @@ fun RegisterScreen(
 
             verticalArrangement = Arrangement.Center
         ) {
-            val data by viewModel.data.collectAsStateWithLifecycle()
-
-            val isFormValid = data.userName.isNotEmpty() &&
-                    data.email.isNotEmpty() &&
-                    data.password.isNotEmpty() &&
-                    data.confirmPassword.isNotEmpty() &&
-                    data.password == data.confirmPassword &&
-                    acceptedTerms
 
             Image(
                 painter = painterResource(id = R.drawable.register_img),
@@ -128,14 +125,9 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            val textFieldsModifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
-            val customQuantityKeyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Text
-            )
-
-            val isNameEmpty = data.userName.isEmpty()
+			val textFieldsModifier = Modifier
+				.fillMaxWidth()
+				.padding(top = 8.dp)
 
             Text(
                 text = stringResource(id = R.string.register_user_label),
@@ -143,107 +135,115 @@ fun RegisterScreen(
                 color = LookeoGray,
             )
             TextField(
-                modifier = textFieldsModifier,
-                value = data.userName,
-                onValueChange = { viewModel.createName(it) },
-                isError = isNameEmpty,
-                placeholder = { Text(stringResource(id = R.string.register_user_placeholder)) },
-                leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoDarkGrey
-                )
-            )
-            Spacer(Modifier.height(8.dp))
+				modifier = textFieldsModifier,
+				value = uiState.username,
+				onValueChange = { viewModel.onUsernameChanged(it) },
+				placeholder = { Text(stringResource(id = R.string.register_user_placeholder)) },
+				leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+				shape = RoundedCornerShape(12.dp),
+				colors = TextFieldDefaults.colors(
+					unfocusedIndicatorColor = Color.Transparent,
+					unfocusedContainerColor = LookeoDarkGrey
+				)
+			)
+			Spacer(Modifier.height(8.dp))
 
-            Text(
-                text = stringResource(id = R.string.register_email_label),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LookeoGray,
-            )
-            TextField(
-                modifier = textFieldsModifier,
-                value = data.email,
-                onValueChange = { viewModel.createEmail(it) },
-                placeholder = { Text(stringResource(id = R.string.register_email_placeholder)) },
-                leadingIcon = { Icon(Icons.Default.Mail, contentDescription = null) },
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoDarkGrey
-                )
-            )
-            Spacer(Modifier.height(8.dp))
+			Text(
+				text = stringResource(id = R.string.register_email_label),
+				style = MaterialTheme.typography.bodyMedium,
+				color = LookeoGray,
+			)
+			TextField(
+				modifier = textFieldsModifier,
+				value = uiState.email,
+				onValueChange = { viewModel.onEmailChanged(it) },
+				placeholder = { Text(stringResource(id = R.string.register_email_placeholder)) },
+				leadingIcon = { Icon(Icons.Default.Mail, contentDescription = null) },
+				shape = RoundedCornerShape(12.dp),
+				colors = TextFieldDefaults.colors(
+					unfocusedIndicatorColor = Color.Transparent,
+					unfocusedContainerColor = LookeoDarkGrey
+				)
+			)
+			Spacer(Modifier.height(8.dp))
 
 
-            Text(
-                text = stringResource(id = R.string.register_password_label),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LookeoGray,
-            )
-            TextField(
-                modifier = textFieldsModifier,
-                value = data.password,
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
-                ),
-                visualTransformation = if (passwordVisible) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                },
-                trailingIcon = {
-                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(
-                            if (passwordVisible) Icons.Filled.Visibility
-                            else Icons.Filled.VisibilityOff,
-                            contentDescription = null
-                        )
-                    }
-                },
-                onValueChange = { viewModel.createPassword(it) },
-                placeholder = { Text(stringResource(id = R.string.register_password_placeholder)) },
-                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoDarkGrey
-                )
-            )
-            Spacer(Modifier.height(8.dp))
+			Text(
+				text = stringResource(id = R.string.register_password_label),
+				style = MaterialTheme.typography.bodyMedium,
+				color = LookeoGray,
+			)
+			TextField(
+				modifier = textFieldsModifier,
+				value = uiState.password,
+				onValueChange = { viewModel.onPasswordChanged(it) },
+				keyboardOptions = KeyboardOptions.Default.copy(
+					keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
+				),
+				visualTransformation = if (passwordVisible) {
+					VisualTransformation.None
+				} else {
+					PasswordVisualTransformation()
+				},
+				trailingIcon = {
+					IconButton(onClick = { passwordVisible = !passwordVisible }) {
+						Icon(
+							if (passwordVisible) Icons.Filled.Visibility
+							else Icons.Filled.VisibilityOff,
+							contentDescription = null
+						)
+					}
+				},
+				placeholder = { Text(stringResource(id = R.string.register_password_placeholder)) },
+				leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+				shape = RoundedCornerShape(12.dp),
+				colors = TextFieldDefaults.colors(
+					unfocusedIndicatorColor = Color.Transparent,
+					unfocusedContainerColor = LookeoDarkGrey
+				)
+			)
+			Spacer(Modifier.height(8.dp))
 
-            Text(
-                text = stringResource(id = R.string.register_password_confirm_label),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LookeoGray,
-            )
-            TextField(
-                modifier = textFieldsModifier,
-                value = data.confirmPassword,
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
-                ),
-                visualTransformation = if (passwordVisible) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                },
-                onValueChange = { viewModel.createConfirmPassword(it) },
-                placeholder = { Text(stringResource(id = R.string.register_password_confirm_placeholder)) },
-                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = LookeoDarkGrey
-                )
-            )
-            Text(
-                text = stringResource(id = R.string.register_password_characters),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LookeoGray,
-            )
-            Spacer(Modifier.height(8.dp))
+			Text(
+				text = stringResource(id = R.string.register_password_confirm_label),
+				style = MaterialTheme.typography.bodyMedium,
+				color = LookeoGray,
+			)
+			TextField(
+				modifier = textFieldsModifier,
+				value = uiState.confirmPassword,
+				onValueChange = { viewModel.onConfirmPasswordChanged(it) },
+				keyboardOptions = KeyboardOptions.Default.copy(
+					keyboardType = if (confirmPasswordVisible) KeyboardType.Text else KeyboardType.Password
+				),
+				visualTransformation = if (confirmPasswordVisible) {
+					VisualTransformation.None
+				} else {
+					PasswordVisualTransformation()
+				},
+				trailingIcon = {
+					IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+						Icon(
+							if (confirmPasswordVisible) Icons.Filled.Visibility
+							else Icons.Filled.VisibilityOff,
+							contentDescription = null
+						)
+					}
+				},
+				placeholder = { Text(stringResource(id = R.string.register_password_confirm_placeholder)) },
+				leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+				shape = RoundedCornerShape(12.dp),
+				colors = TextFieldDefaults.colors(
+					unfocusedIndicatorColor = Color.Transparent,
+					unfocusedContainerColor = LookeoDarkGrey
+				)
+			)
+			Text(
+				text = stringResource(id = R.string.register_password_characters),
+				style = MaterialTheme.typography.bodyMedium,
+				color = LookeoGray,
+			)
+			Spacer(Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -251,50 +251,50 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
-                    checked = acceptedTerms,
-                    onCheckedChange = { newValue ->
-                        acceptedTerms = newValue
-                    }
-                )
-                Text(
-                    text = stringResource(id = R.string.register_accept) + " ",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LookeoGray
-                )
-                Text(
-                    text = stringResource(id = R.string.register_terms) + " ",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LookeoGold
-                )
-                Text(
-                    text = stringResource(id = R.string.register_and) + " ",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LookeoGray
-                )
-                Text(
-                    text = stringResource(id = R.string.register_privacy),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LookeoGold
-                )
+					checked = uiState.acceptedTerms,
+					onCheckedChange = { viewModel.onAcceptedTermsChanged(it) }
+				)
+				Text(
+					text = stringResource(id = R.string.register_terms),
+					style = MaterialTheme.typography.bodyMedium,
+					color = LookeoGray
+				)
             }
 
+			if (errorMessage != null) {
+				Text(
+					text = errorMessage,
+					color = Color.Red,
+					style = MaterialTheme.typography.bodyMedium
+				)
+				Spacer(Modifier.height(8.dp))
+			}
+
             Button(
-                enabled = isFormValid,
-                onClick = onNavigateToHome,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = LookeoGold,
-                    contentColor = LookeoBlack
-                ),
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = stringResource(id = R.string.register_button),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = LookeoBlack
-                )
-            }
+				enabled = !uiState.isLoading,
+				onClick = { viewModel.register() },  // NO onNavigateToHome
+				colors = ButtonDefaults.buttonColors(
+					containerColor = LookeoGold,
+					contentColor = LookeoBlack
+				),
+				shape = RoundedCornerShape(8.dp),
+				modifier = Modifier.fillMaxWidth()
+			) {
+				if (uiState.isLoading) {
+					CircularProgressIndicator(
+						modifier = Modifier.height(24.dp),
+						color = LookeoBlack,
+						strokeWidth = 2.dp
+					)
+				} else {
+					Text(
+						text = stringResource(id = R.string.register_button),
+						style = MaterialTheme.typography.bodyMedium,
+						fontWeight = FontWeight.Bold,
+						color = LookeoBlack
+					)
+				}
+			}
 
             OnLogin(onNavigateToLogin)
         }

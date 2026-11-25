@@ -1,58 +1,149 @@
     package com.alanturing.lookeo_movil.features.auth.ui
 
-    import androidx.compose.foundation.text.input.TextFieldState
-    import androidx.lifecycle.ViewModel
-    import androidx.lifecycle.viewModelScope
-    import dagger.hilt.android.lifecycle.HiltViewModel
-    import kotlinx.coroutines.flow.MutableStateFlow
-    import kotlinx.coroutines.flow.StateFlow
-    import kotlinx.coroutines.flow.asStateFlow
-    import kotlinx.coroutines.launch
-    import javax.inject.Inject
+	import android.util.Patterns
+	import androidx.annotation.StringRes
+	import androidx.lifecycle.ViewModel
+	import androidx.lifecycle.viewModelScope
+	import com.alanturing.lookeo_movil.R
+	import com.alanturing.lookeo_movil.features.auth.data.repository.UserRepository
+	import dagger.hilt.android.lifecycle.HiltViewModel
+	import kotlinx.coroutines.flow.MutableStateFlow
+	import kotlinx.coroutines.flow.StateFlow
+	import kotlinx.coroutines.flow.asStateFlow
+	import kotlinx.coroutines.flow.update
+	import kotlinx.coroutines.launch
+	import javax.inject.Inject
+
+	data class RegisterUiState(
+		val username: String = "",
+		val email: String = "",
+		val password: String = "",
+		val confirmPassword: String = "",
+		val acceptedTerms: Boolean = false,
+		val isLoading: Boolean = false,
+
+		@StringRes val errorMessageResId: Int? = null,
+		val errorMessage: String? = null,
+		val isSuccess: Boolean = false,
+	)
 
     @HiltViewModel
-    class RegisterViewModel @Inject constructor() : ViewModel(){
-        private val _state: MutableStateFlow<RegisterUiState> =
-        MutableStateFlow(value = RegisterUiState.Loading)
+	class RegisterViewModel @Inject constructor(
+		private val userRepository: UserRepository,
+	) : ViewModel() {
+	
+		private val _uiState = MutableStateFlow(RegisterUiState())
+		val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
-        val nameState = TextFieldState()
+		fun onUsernameChanged(value: String) {
+			_uiState.update {
+				it.copy(username = value, errorMessageResId = null, errorMessage = null)
+			}
+		}
 
-        private val _data: MutableStateFlow<RegisterUiData> =
-            MutableStateFlow(value = RegisterUiData())
+		fun onEmailChanged(value: String) {
+			_uiState.update {
+				it.copy(email = value, errorMessageResId = null, errorMessage = null)
+			}
+		}
 
-        val state: StateFlow<RegisterUiState>
-            get() = _state.asStateFlow()
+		fun onPasswordChanged(value: String) {
+			_uiState.update {
+				it.copy(password = value, errorMessageResId = null, errorMessage = null)
+			}
+		}
 
-        val data: StateFlow<RegisterUiData>
-            get() = _data.asStateFlow()
+		fun onConfirmPasswordChanged(value: String) {
+			_uiState.update {
+				it.copy(confirmPassword = value, errorMessageResId = null, errorMessage = null)
+			}
+		}
 
-        fun createName(newName: String) {
-            _data.value = _data.value.copy(userName = newName)
-        }
+		fun onAcceptedTermsChanged(accepted: Boolean) {
+			_uiState.update {
+				it.copy(acceptedTerms = accepted, errorMessageResId = null, errorMessage = null)
+			}
+		}
 
-        fun createEmail(newEmail: String) {
-            _data.value = _data.value.copy(email = newEmail)
-        }
+		fun register() {
+			val state = _uiState.value
+			val username = state.username.trim()
+			val email = state.email.trim()
+			val password = state.password
 
-        fun createPassword(newPassword: String) {
-            _data.value = _data.value.copy(password = newPassword)
-        }
+			if (username.isBlank() || email.isBlank() || password.isBlank() || state.confirmPassword.isBlank()) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_fill_all, errorMessage = null)
+				}
+				return
+			}
 
-        fun createConfirmPassword(newConfirmPassword: String) {
-            _data.value = _data.value.copy(confirmPassword = newConfirmPassword)
-        }
-    }
+			if (username.length < 3) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_error_name, errorMessage = null)
+				}
+				return
+			}
 
-    sealed class RegisterUiState {
-        object Loading : RegisterUiState()
-        object Success : RegisterUiState()
-        data class Error(val message: String) : RegisterUiState()
-    }
+			if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_error_email, errorMessage = null)
+				}
+				return
+			}
 
-    data class RegisterUiData(
-        val userName: String = "",
-        val email: String = "",
-        val password: String = "",
-        val confirmPassword: String = "",
-        val exist: Boolean = false,
-    )
+			if (password.length < 8) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_error_password, errorMessage = null)
+				}
+				return
+			}
+
+			if (password != state.confirmPassword) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_error_password_mismatch, errorMessage = null)
+				}
+				return
+			}
+
+			if (!state.acceptedTerms) {
+				_uiState.update {
+					it.copy(errorMessageResId = R.string.register_error_terms, errorMessage = null)
+				}
+				return
+			}
+
+			viewModelScope.launch {
+				_uiState.update {
+					it.copy(isLoading = true, errorMessageResId = null, errorMessage = null)
+				}
+
+				val result = userRepository.register(
+					email = email,
+					name = username,
+					password = password,
+				)
+
+				result.fold(
+					onSuccess = {
+						// El repo ya guarda usuario en Room + token en DataStore
+						_uiState.update { it.copy(isLoading = false, isSuccess = true) }
+					},
+					onFailure = { error ->
+						_uiState.update {
+							it.copy(
+								isLoading = false,
+								errorMessageResId = null,
+								errorMessage = error.message
+									?: "Error al registrar usuario",
+							)
+						}
+					},
+				)
+			}
+		}
+
+		fun resetSuccessState() {
+			_uiState.update { it.copy(isSuccess = false) }
+		}
+	}

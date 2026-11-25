@@ -30,11 +30,18 @@
     <string name="register_password_placeholder">Crea una contraseña</string>
     <string name="register_password_confirm_placeholder">Confirma tu contraseña</string>
     <string name="register_password_characters">Usa al menos 8 caracteres</string>
-    <string name="register_accept">Acepto los</string>
-    <string name="register_terms">Términos de uso</string>
-    <string name="register_and">y la</string>
-    <string name="register_privacy">Política de privacidad</string>
+    <string name="register_terms">Acepto los términos de uso y la política de privacidad</string>
     <string name="register_button">Crear cuenta</string>
     <string name="register_login_button">¿Ya tienes cuenta? </string>
     <string name="register_login_button_link">Iniciar sesión</string>
+
+	<!-- Texto Errores Register -->
+	<string name="register_error_name">El nombre debe tener al menos 3 caracteres</string>
+	<string name="register_error_email">Introduce un correo electrónico válido</string>
+	<string name="register_error_password">La contraseña debe tener al menos 8 caracteres</string>
+	<string name="register_error_password_mismatch">Las contraseñas no coinciden</string>
+	<string name="register_error_generic">Error al crear la cuenta</string>
+	<string name="register_fill_all">Rellena todos los campos</string>
+	<string name="register_error_terms">Debes aceptar los términos y la política de privacidad</string>
+
 </resources>
