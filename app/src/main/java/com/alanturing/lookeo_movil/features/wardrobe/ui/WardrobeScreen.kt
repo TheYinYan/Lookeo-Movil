@@ -99,6 +99,8 @@ fun WardrobeScreen(
                 Text("Ir a mis outfits")
             }
 
+            Spacer(modifier = Modifier.height(20.dp))
+
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
