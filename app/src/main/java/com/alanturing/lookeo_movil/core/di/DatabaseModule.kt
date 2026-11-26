@@ -19,10 +19,14 @@ class DatabaseModule {
     fun providesDatabase(
         @ApplicationContext context: Context
     ): UserDatabase = Room.databaseBuilder<UserDatabase>(
-            context = context,
-            name = "user-db"
-        ).build()
+        context = context,
+        name = "user-db"
+    )
+        .fallbackToDestructiveMigration(true)
+        .build()
 
     @Provides
     fun providesUserDao(db: UserDatabase) = db.userDao()
+    @Provides
+    fun providesItemDao(db: UserDatabase) = db.itemDao()
 }

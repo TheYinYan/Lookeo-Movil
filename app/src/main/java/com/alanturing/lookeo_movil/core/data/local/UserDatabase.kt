@@ -5,11 +5,11 @@ import androidx.room3.Database
 import androidx.room3.RoomDatabase
 
 @Database(
-    entities = [UserEntity::class],
-    version = 1
+    entities = [UserEntity::class, ItemEntity::class],
+    version = 2,
 )
 @ColumnTypeConverters(DateConverter::class)
-abstract class UserDatabase(): RoomDatabase() {
-
+abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun itemDao(): ItemDao
 }

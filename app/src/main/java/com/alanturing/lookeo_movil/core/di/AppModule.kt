@@ -8,6 +8,12 @@ import com.alanturing.lookeo_movil.features.auth.data.remote.UserRemoteDataSourc
 import com.alanturing.lookeo_movil.features.auth.data.remote.UserRemoteDataSourceImpl
 import com.alanturing.lookeo_movil.features.auth.data.repository.UserRepository
 import com.alanturing.lookeo_movil.features.auth.data.repository.UserRepositoryImpl
+import com.alanturing.lookeo_movil.features.items.data.local.datasource.ItemLocalDBDatasource
+import com.alanturing.lookeo_movil.features.items.data.local.datasource.ItemLocalDataSource
+import com.alanturing.lookeo_movil.features.items.data.remote.ItemRemoteDataSource
+import com.alanturing.lookeo_movil.features.items.data.remote.ItemRemoteDataSourceImpl
+import com.alanturing.lookeo_movil.features.items.data.repository.ItemRepository
+import com.alanturing.lookeo_movil.features.items.data.repository.ItemRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -35,4 +41,16 @@ abstract class AppModule {
     abstract fun bindsTokenLocalDataSource(
         ds: TokenLocalDataSourceImpl
     ): TokenLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsItemLocalDataSource(ds: ItemLocalDBDatasource): ItemLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsItemRemoteDataSource(ds: ItemRemoteDataSourceImpl): ItemRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsItemRepository(ds: ItemRepositoryImpl): ItemRepository
 }

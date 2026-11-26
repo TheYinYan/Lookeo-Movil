@@ -10,19 +10,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.alanturing.lookeo_movil.core.ui.components.LookeoTopBar
-import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoBlack
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoDarkSurface
+import com.alanturing.lookeo_movil.core.ui.theme.LookeoGold
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoGray
 import com.alanturing.lookeo_movil.core.ui.theme.LookeoWhite
+
 @Composable
 fun NewItemScreen(
     onNavigateToWardrobe: () -> Unit,
-    viewModel: NewItemViewModel = viewModel()
-){
+    viewModel: NewItemViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
+            viewModel.resetSuccessState()
+            onNavigateToWardrobe()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -47,7 +55,7 @@ fun NewItemScreen(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ){
+            ) {
                 DropdownField(
                     label = "Tipo",
                     selectedOption = uiState.tipo,
@@ -69,11 +77,11 @@ fun NewItemScreen(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ){
+            ) {
                 DropdownField(
                     label = "Temporada",
                     selectedOption = uiState.temporada,
-                    options = listOf("Entretiempo", "Primavera", "Verano", "Otoño", "Invierno"),
+                    options = listOf("Primavera", "Verano", "Otoño", "Invierno"),
                     onOptionSelected = { viewModel.onTemporadaChanged(it) },
                     modifier = Modifier.weight(1f)
                 )
@@ -91,6 +99,7 @@ fun NewItemScreen(
             OutlinedTextField(
                 value = uiState.notas,
                 onValueChange = { viewModel.onNotasChanged(it) },
+                placeholder = { Text("Notas adicionales...", color = LookeoGray, fontSize = 12.sp) },
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = LookeoDarkSurface,
@@ -101,15 +110,41 @@ fun NewItemScreen(
                     unfocusedTextColor = LookeoWhite
                 ),
                 shape = RoundedCornerShape(12.dp),
-                textStyle = TextStyle(fontSize = 12.sp))
+                textStyle = TextStyle(fontSize = 12.sp)
+            )
+
+            uiState.errorMessage?.let { error ->
+                Text(
+                    text = error,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val isFormValid = uiState.tipo != "Selecciona" &&
+                    uiState.color != "Selecciona" &&
+                    uiState.temporada != "Selecciona" &&
+                    uiState.ocasion != "Selecciona"
 
             Button(
                 onClick = { viewModel.saveItem() },
-                modifier = Modifier.fillMaxWidth().height(56.dp).padding(top = 16.dp),
+                enabled = !uiState.isLoading && isFormValid,
+                modifier = Modifier.fillMaxWidth().height(56.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = LookeoGold),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text("Guardar prenda", color = LookeoBlack)
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        color = LookeoBlack,
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text("Guardar prenda", color = LookeoBlack)
+                }
             }
         }
     }
