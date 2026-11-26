@@ -19,6 +19,7 @@
     <string name="login_user_placeholder">Introduzca su usuario o email</string>
     <string name="login_password_placeholder">••••••••</string>
 	<string name="login_fill_both">Rellena usuario/email y contraseña</string>
+	<string name="login_error_credentials">Credenciales incorrectas</string>
 
     <!-- Texto Register -->
     <string name="register_welcome">Crea tu cuenta</string>

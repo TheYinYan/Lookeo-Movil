@@ -110,7 +110,6 @@ fun ProfileScreen(
                 Text(
                     text = "¿Seguro que quieres cerrar sesión?",
                     style = MaterialTheme.typography.displaySmall,
-//                    fontFamily = PlayfairDisplayRegular,
                     color = LookeoWhite,
                     textAlign = TextAlign.Center
                 )
@@ -119,7 +118,6 @@ fun ProfileScreen(
                 Text(
                     text = "Tu armario y tus conjuntos seguirán aquí cuando vuelvas.",
                     style = MaterialTheme.typography.bodyMedium,
-//                    fontFamily = InterRegular,
                     color = LookeoGray,
                     textAlign = TextAlign.Center
                 )

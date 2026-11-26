@@ -63,13 +63,14 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = hiltViewModel()
 
-    val date by viewModel.date.collectAsStateWithLifecycle()
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val errorMessage = (state as? LoginUiState.Error)?.message
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val errorMessage = uiState.errorMessageResId?.let { stringResource(it) }
+        ?: uiState.errorMessage
 
-    LaunchedEffect(state) {
-        if (state is LoginUiState.Success) {
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
             onNavigateToHome()
+            viewModel.resetSuccessState()
         }
     }
 
@@ -140,8 +141,8 @@ fun LoginScreen(
 
             TextField(
                 modifier = textFieldsModifier,
-                value = date.userName,
-                onValueChange = { viewModel.updateName(it) },
+                value = uiState.userOrEmail,
+                onValueChange = { viewModel.onUserOrEmailChanged(it) },
                 placeholder = { Text(stringResource(id = R.string.login_user_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                 shape = RoundedCornerShape(12.dp),
@@ -166,13 +167,13 @@ fun LoginScreen(
             TextField(
                 modifier = textFieldsModifier
                     .padding(bottom = 8.dp),
-                value = date.password,
+                value = uiState.password,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = if (passwordVisible) KeyboardType.Text else KeyboardType.Password
                 ),
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 onValueChange = {
-                    viewModel.updatePassword(it)
+                    viewModel.onPasswordChanged(it)
                 },
                 placeholder = { Text(stringResource(id = R.string.login_password_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
@@ -205,6 +206,7 @@ fun LoginScreen(
 
             Button(
                 onClick = { viewModel.login() },
+                enabled = !uiState.isLoading,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = LookeoGold,
                     contentColor = LookeoBlack
