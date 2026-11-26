@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,40 +35,41 @@ data class ItemDetailUiState(
 @HiltViewModel
 class ItemDetailViewModel @Inject constructor(
 	private val itemRepository: ItemRepository,
-	SavedStateHandle: SavedStateHandle,
+	savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-	private val route = SavedStateHandle.toRoute<Routes.DetailItem>()
+	private val route = savedStateHandle.toRoute<Routes.DetailItem>()
 	private val itemId: Int = route.itemId.toIntOrNull() ?: 0
 
 	private val _uiState = MutableStateFlow(ItemDetailUiState(itemId = itemId))
 	val uiState: StateFlow<ItemDetailUiState> = _uiState.asStateFlow()
 
 	init {
-		if (itemId > 0) {
-			viewModelScope.launch {
-				itemRepository.observeItem(itemId).collect { item ->
-					if (item != null) {
-						_uiState.update {
-							it.copy(
-								userId = item.userId,
-								tipo = item.tipo,
-								color = item.color,
-								temporada = item.temporada,
-								ocasion = item.ocasion,
-								notas = item.notas,
-								imageUrl = item.imageUrl,
-								createdAt = item.createdAt,
-								isLoaded = true,
-							)
-						}
-					}
+	if (itemId > 0) {
+		viewModelScope.launch {
+			val item = itemRepository.observeItem(itemId).firstOrNull()
+			if (item != null) {
+				_uiState.update {
+					it.copy(
+						userId = item.userId,
+						tipo = item.tipo,
+						color = item.color,
+						temporada = item.temporada,
+						ocasion = item.ocasion,
+						notas = item.notas,
+						imageUrl = item.imageUrl,
+						createdAt = item.createdAt,
+						isLoaded = true,
+					)
 				}
+			} else {
+				_uiState.update { it.copy(errorMessage = "Prenda no encontrada") }
 			}
-		} else {
-			_uiState.update { it.copy(errorMessage = "Prenda no válida") }
 		}
+	} else {
+		_uiState.update { it.copy(errorMessage = "Prenda no válida") }
 	}
+}
 	
 
 	fun onTipoChanged(value: String) {
@@ -78,15 +80,15 @@ class ItemDetailViewModel @Inject constructor(
 		_uiState.update { it.copy(color = value, errorMessage = null) }
 	}
 
-	fun onTemporadaChanched(value: String) {
+	fun onTemporadaChanged(value: String) {
 		_uiState.update { it.copy(temporada = value, errorMessage = null) }
 	}
 
-	fun onOcasionChanched(value: String) {
-		_uiState.update { it.copy(notas = value, errorMessage = null) }
+	fun onOcasionChanged(value: String) {
+		_uiState.update { it.copy(ocasion = value, errorMessage = null) }
 	}
 
-	fun NotasChanged(value: String) {
+	fun onNotasChanged(value: String) {
 		_uiState.update { it.copy(notas = value, errorMessage = null) }
 	}
 

@@ -69,7 +69,7 @@ fun ItemDetailScreen(
 				modifier = Modifier.padding(bottom = 12.dp),
 			)
 			Text(
-				text = "Ajusta las etiquetas y guarda los combios.",
+				text = "Ajusta las etiquetas y guarda los cambios.",
 				color = LookeoGray,
 				style = MaterialTheme.typography.labelMedium,
 				modifier = Modifier.padding(bottom = 12.dp),
@@ -139,7 +139,7 @@ fun ItemDetailScreen(
 					focusedBorderColor = Color.Transparent,
 					unfocusedBorderColor = Color.Transparent,
 					focusedTextColor = LookeoWhite,
-					unfocusedTextColor = lookeroWhite,
+					unfocusedTextColor = LookeoWhite,
 				),
 				shape = RoundedCornerShape(12.dp),
 				textStyle = TextStyle(fontSize = 12.sp)
@@ -160,7 +160,7 @@ fun ItemDetailScreen(
 				onClick = { viewModel.saveItem() },
 				enabled = !uiState.isLoading && uiState.isLoaded,
 				modifier = Modifier
-					.fillMaxWidth(),
+					.fillMaxWidth()
 					.height(56.dp),
 				colors = ButtonDefaults.buttonColors(containerColor = LookeoGold),
 				shape = RoundedCornerShape(12.dp),
