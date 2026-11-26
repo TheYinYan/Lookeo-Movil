@@ -7,6 +7,7 @@ import com.alanturing.lookeo_movil.features.items.data.remote.ItemRemoteDataSour
 import com.alanturing.lookeo_movil.features.items.data.remote.model.CreateItemBody
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -64,19 +65,28 @@ class ItemRepositoryImpl @Inject constructor(
 
         val result = remoteDataSource.createItem(body)
         result.onSuccess { createdItem ->
-            localDataSource.saveItem(createdItem)
+            val user = userRepository.observeUser().filterNotNull().firstOrNull()
+            val itemToSave = if (user != null && createdItem.userId <= 0) {
+                createdItem.copy(userId = user.id)
+            } else {
+                createdItem
+            }
+            localDataSource.saveItem(itemToSave)
         }
         return result
     }
 
     override suspend fun refresh(): Result<Unit> {
-        val user = userRepository.observeUser().firstOrNull()
+        val user = userRepository.observeUser().filterNotNull().firstOrNull()
             ?: return Result.failure(Exception("No hay usuario en sesión"))
 
         val result = remoteDataSource.getMyItems()
         return result.map { items ->
+            val itemsWithUser = items.map { item ->
+                if (item.userId <= 0) item.copy(userId = user.id) else item
+            }
             localDataSource.clearItemsByUser(user.id)
-            localDataSource.saveItems(items)
+            localDataSource.saveItems(itemsWithUser)
         }
     }
 }

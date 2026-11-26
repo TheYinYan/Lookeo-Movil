@@ -58,6 +58,7 @@ dependencies {
 
     // Splash Screen
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation(libs.androidx.datastore.preferences)
     implementation("androidx.core:core-splashscreen:1.2.0")
     implementation("androidx.compose.material:material-icons-extended")

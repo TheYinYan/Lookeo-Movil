@@ -1,6 +1,7 @@
 package com.alanturing.lookeo_movil.features.items.data.remote.model
 
 import com.alanturing.lookeo_movil.features.items.data.model.Item
+import com.google.gson.annotations.SerializedName
 
 data class CreateItemBody(
     val type: String,
@@ -13,7 +14,8 @@ data class CreateItemBody(
 
 data class ItemResponse(
     val id: Int,
-    val userId: Int,
+    @SerializedName("userId", alternate = ["user_id"])
+    val userId: Int = 0,
     val type: String,
     val color: List<String> = emptyList(),
     val season: List<String> = emptyList(),
