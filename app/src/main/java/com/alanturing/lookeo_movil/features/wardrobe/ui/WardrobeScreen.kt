@@ -43,6 +43,7 @@ fun WardrobeScreen(
     onNavigateToFavorites: () -> Unit,
     onNavigateToProfile: () -> Unit,
     onNavigateToNewItem: () -> Unit,
+	onNavigateToItemDetail: (Int) -> Unit,
     viewModel: WardrobeViewModel = hiltViewModel()
 ) {
     val items by viewModel.valueItem.collectAsStateWithLifecycle()
@@ -105,7 +106,10 @@ fun WardrobeScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(items, key = { it.id }) { prenda ->
-                    PrendaCard(item = prenda)
+                    PrendaCard(
+						item = prenda,
+						onClick = { onNavigateToItemDetail(prenda.id) },
+					)
                 }
             }
         }
@@ -113,8 +117,12 @@ fun WardrobeScreen(
 }
 
 @Composable
-fun PrendaCard(item: Item) {
+fun PrendaCard(
+	item: Item,
+	onClick: () -> Unit,
+) {
     Card(
+		onClick = onClick,
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = LookeoBlack),
         modifier = Modifier.fillMaxWidth()
