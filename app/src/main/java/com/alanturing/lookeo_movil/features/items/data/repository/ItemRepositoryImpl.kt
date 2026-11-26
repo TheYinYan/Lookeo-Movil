@@ -35,6 +35,44 @@ class ItemRepositoryImpl @Inject constructor(
             "https://images.unsplash.com/photo-1782227286076-4f5153a8cdac?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
     }
 
+	override fun observeItem(id: Int): Flow<Item?> {
+		return localDataSource.observeItemById(id)
+	}
+
+	override suspend fun updateItem(item: Item): Result<Item> {
+		val token = userRepository.getToken()
+		if (token.isNullOrBlank()) {
+			return Result.failure(Exception("No hay sesión activa"))
+		}
+
+		val resolvedImgUrl: List<String> = if (item.imageUrl.isNullOrBlank()) {
+			listOf(DEFAULT_ITEM_IMAGE_URL)
+		} else {
+			listOf(item.imageUrl)
+		}
+
+		val body = CreateItemBody(
+			type = item.tipo,
+			color = listOf(item.color),
+			season = listOf(item.temporada),
+			style = listOf(item.ocasion),
+			imgUrl = resolvedImgUrl,
+			notes = item.notas.ifBlank { null },
+		)
+
+		val result = remoteDataSource.updateItem(item.id, body)
+		result.onSuccess { updatedItem ->
+			val user = userRepository.observeUser().filterNotNull().firstOrNull()
+			val itemToSave = if (user != null && updatedItem.userId <= 0) {
+				updatedItem.copy(userId = user.id)
+			} else {
+				updatedItem
+			}
+			localDataSource.saveItem(itemToSave)
+		}
+		return result
+	}
+
     override suspend fun createItem(
         tipo: String,
         color: String,

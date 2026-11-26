@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface ItemRepository {
     fun observeItems(): Flow<List<Item>>
 
+	fun observeItem(id: Int): Flow<Item?>
+
     suspend fun createItem(
         tipo: String,
         color: String,
@@ -14,6 +16,8 @@ interface ItemRepository {
         notas: String,
         imageUrl: String? = null,
     ): Result<Item>
+
+    suspend fun updateItem(item: Item): Result<Item>
 
     suspend fun refresh(): Result<Unit>
 }

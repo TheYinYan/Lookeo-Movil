@@ -6,4 +6,5 @@ import com.alanturing.lookeo_movil.features.items.data.remote.model.CreateItemBo
 interface ItemRemoteDataSource {
     suspend fun getMyItems(): Result<List<Item>>
     suspend fun createItem(body: CreateItemBody): Result<Item>
+	suspend fun updateItem(id: Int, body: CreateItemBody): Result<Item>
 }

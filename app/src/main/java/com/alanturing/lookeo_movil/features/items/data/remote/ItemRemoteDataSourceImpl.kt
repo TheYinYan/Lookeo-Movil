@@ -39,4 +39,19 @@ class ItemRemoteDataSourceImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun updateItem(id: Int, body: CreateItemBody): Result<Item> {
+        return try {
+            val response = api.updateItem(id, body)
+            val created = response.body()
+            if (response.isSuccessful && created != null) {
+                Result.success(created.toModel())
+            } else {
+                val errorDetail = response.errorBody()?.string() ?: "Sin detalle"
+                Result.failure(Exception("Error ${response.code()}: $errorDetail"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
