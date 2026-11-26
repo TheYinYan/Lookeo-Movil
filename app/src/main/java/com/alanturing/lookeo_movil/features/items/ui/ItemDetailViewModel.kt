@@ -117,7 +117,7 @@ class ItemDetailViewModel @Inject constructor(
 				onFailure = { error ->
 					_uiState.update {
 						it.copy(
-							isLoading = false.
+							isLoading = false,
 							errorMessage = error.message ?: "Error al actualizar la prenda",
 						)
 					}
