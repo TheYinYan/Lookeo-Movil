@@ -2,6 +2,7 @@ package com.alanturing.lookeo_movil.features.wardrobe.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alanturing.lookeo_movil.core.data.network.NetworkMonitor
 import com.alanturing.lookeo_movil.features.items.data.model.Item
 import com.alanturing.lookeo_movil.features.items.data.repository.ItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WardrobeViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
+	networkMonitor: NetworkMonitor,
 ) : ViewModel() {
 
 	private val _filters = MutableStateFlow(WardrobeFilters())
@@ -44,14 +46,24 @@ class WardrobeViewModel @Inject constructor(
 		_filters.value = WardrobeFilters()
 	}
 
-    fun refreshItems() {
-        viewModelScope.launch {
-			itemRepository.syncPending()
-            itemRepository.refresh()
-        }
-    }
+	init { 
+		refreshItems() 
 
-	init { refreshItems() }
+		viewModelScope.launch {
+			networkMonitor.isOnLine.collect { online ->
+				if (online) {
+					itemRepository.syncPending()
+				}
+			}
+		}
+	}
+
+	fun refreshItems() {
+		viewModelScope.launch {
+			itemRepository.syncPending()
+			itemRepository.refresh()
+		}
+	}
 }
 
 data class WardrobeFilters(
