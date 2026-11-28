@@ -46,32 +46,37 @@ class ItemRepositoryImpl @Inject constructor(
 			return Result.failure(Exception("No hay sesión activa"))
 		}
 
-		val resolvedImgUrl: List<String> = if (item.imageUrl.isNullOrBlank()) {
-			listOf(DEFAULT_ITEM_IMAGE_URL)
-		} else {
-			listOf(item.imageUrl)
+		if (item.id < 0) {
+			val local = item.copy(syncStatus = SyncStatus.PENDING_CREATE)
+			localDataSource.saveItem(local)
+			return Result.success(local)
 		}
 
-		val body = CreateItemBody(
-			type = item.tipo,
-			color = listOf(item.color),
-			season = listOf(item.temporada),
-			style = listOf(item.ocasion),
-			imgUrl = resolvedImgUrl,
-			notes = item.notas.ifBlank { null },
+		val body = buildBody(
+			tipo = item.tipo,
+			color = item.color,
+			temporada = item.temporada,
+			ocasion = item.ocasion,
+			notas = item.notas,
+			imageUrl = item.imageUrl,
 		)
-
 		val result = remoteDataSource.updateItem(item.id, body)
-		result.onSuccess { updatedItem ->
-			val user = userRepository.observeUser().filterNotNull().firstOrNull()
-			val itemToSave = if (user != null && updatedItem.userId <= 0) {
-				updatedItem.copy(userId = user.id)
-			} else {
-				updatedItem
-			}
-			localDataSource.saveItem(itemToSave)
-		}
-		return result
+
+		return result.fold(
+			onSuccess = { updated ->
+				val toSave = updated.copy(
+					userId = if (updated.userId <= 0) item.userId else updated.userId,
+					syncStatus = SyncStatus.SYNCED,
+				)
+				localDataSource.saveItem(toSave)
+				Result.success(toSave)
+			},
+			onFailure = {
+				val pending = item.copy(syncStatus = SyncStatus.PENDING_UPDATE)
+				localDataSource.saveItem(pending)
+				Result.success(pending)
+			},
+		)
 	}
 
     override suspend fun createItem(
@@ -118,6 +123,7 @@ class ItemRepositoryImpl @Inject constructor(
 				Result.success(local)
 			}
 		)
+	}
 
     override suspend fun refresh(): Result<Unit> {
         val user = userRepository.observeUser().filterNotNull().firstOrNull()
@@ -128,10 +134,59 @@ class ItemRepositoryImpl @Inject constructor(
             val itemsWithUser = items.map { item ->
                 if (item.userId <= 0) item.copy(userId = user.id) else item
             }
-            localDataSource.clearItemsByUser(user.id)
+            localDataSource.clearSyncedItemsByUser(user.id)
             localDataSource.saveItems(itemsWithUser)
         }
     }
+
+	override suspend fun syncPending(): Result<Unit> {
+		val pending = localDataSource.getPendingItems()
+
+		for (item in pending) {
+			when (item.syncStatus) {
+				SyncStatus.PENDING_CREATE -> {
+					val body = buildBody(
+						tipo = item.tipo,
+						color = item.color,
+						temporada = item.temporada,
+						ocasion = item.ocasion,
+						notas = item.notas,
+						imageUrl = item.imageUrl,
+					)
+					remoteDataSource.createItem(body).onSuccess { created ->
+						localDataSource.deleteItemById(item.id)
+						localDataSource.saveItem(
+							created.copy(
+								userId = if (created.userId <= 0) item.userId else created.userId,
+								syncStatus = SyncStatus.SYNCED,
+							)
+						)
+					}
+				}
+
+				SyncStatus.PENDING_UPDATE -> {
+					val body = buildBody(
+						tipo = item.tipo,
+						color = item.color,
+						temporada = item.temporada,
+						ocasion = item.ocasion,
+						notas = item.notas,
+						imageUrl = item.imageUrl,
+					)
+					remoteDataSource.updateItem(item.id, body).onSuccess { updated ->
+						localDataSource.saveItem(
+							updated.copy(
+								userId = if (updated.userId <= 0) item.userId else updated.userId,
+								syncStatus = SyncStatus.SYNCED,
+							)
+						)
+					}
+				}
+				SyncStatus.SYNCED -> Unit
+			}
+		}
+		return Result.success(Unit)
+	}
 
 	private fun buildBody(
 		tipo: String,

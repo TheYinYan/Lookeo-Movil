@@ -46,6 +46,7 @@ class WardrobeViewModel @Inject constructor(
 
     fun refreshItems() {
         viewModelScope.launch {
+			itemRepository.syncPending()
             itemRepository.refresh()
         }
     }
