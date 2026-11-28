@@ -46,7 +46,7 @@ fun WardrobeScreen(
 	onNavigateToItemDetail: (Int) -> Unit,
     viewModel: WardrobeViewModel = hiltViewModel()
 ) {
-    val items by viewModel.valueItem.collectAsStateWithLifecycle()
+    val items by viewModel.filteredItems.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
