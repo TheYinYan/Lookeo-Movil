@@ -5,6 +5,7 @@ import com.alanturing.lookeo_movil.features.items.data.local.datasource.ItemLoca
 import com.alanturing.lookeo_movil.features.items.data.model.Item
 import com.alanturing.lookeo_movil.features.items.data.remote.ItemRemoteDataSource
 import com.alanturing.lookeo_movil.features.items.data.remote.model.CreateItemBody
+import com.alanturing.lookeo_movil.features.items.data.model.SyncStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
@@ -86,33 +87,37 @@ class ItemRepositoryImpl @Inject constructor(
             return Result.failure(Exception("No hay sesión activa"))
         }
 
-        val resolvedImgUrl: List<String> = if (imageUrl.isNullOrBlank()) {
-            listOf(DEFAULT_ITEM_IMAGE_URL)
-        } else {
-            listOf(imageUrl)
-        }
+		val user = userRepository.observeUser().filterNotNull().firstOrNull()
+			?: return Result.failure(Exception("No hay usuario en sesión"))
 
-        val body = CreateItemBody(
-            type = tipo,
-            color = listOf(color),
-            season = listOf(temporada),
-            style = listOf(ocasion),
-            imgUrl = resolvedImgUrl,
-            notes = notas.ifBlank { null },
-        )
+		val body = buildBody(tipo, color, temporada, ocasion, notas, imageUrl)
+		val result = remoteDataSource.createItem(body)
 
-        val result = remoteDataSource.createItem(body)
-        result.onSuccess { createdItem ->
-            val user = userRepository.observeUser().filterNotNull().firstOrNull()
-            val itemToSave = if (user != null && createdItem.userId <= 0) {
-                createdItem.copy(userId = user.id)
-            } else {
-                createdItem
-            }
-            localDataSource.saveItem(itemToSave)
-        }
-        return result
-    }
+		return result.fold(
+			onSuccess = { created ->
+				val toSave = created.copy(
+					userId = if (created.userId <= 0) user.id else created.userId,
+					syncStatus = SyncStatus.SYNCED,
+				)
+				localDataSource.saveItem(toSave)
+				Result.success(toSave)
+			},
+			onFailure = {
+				val local = Item(
+					id = nextLocalId(),
+					userId = user.id,
+					tipo = tipo,
+					color = color,
+					temporada = temporada,
+					ocasion = ocasion,
+					notas = notas,
+					imageUrl = imageUrl ?: DEFAULT_ITEM_IMAGE_URL,
+					syncStatus = SyncStatus.PENDING_CREATE,
+				)
+				localDataSource.saveItem(local)
+				Result.success(local)
+			}
+		)
 
     override suspend fun refresh(): Result<Unit> {
         val user = userRepository.observeUser().filterNotNull().firstOrNull()
@@ -127,4 +132,34 @@ class ItemRepositoryImpl @Inject constructor(
             localDataSource.saveItems(itemsWithUser)
         }
     }
+
+	private fun buildBody(
+		tipo: String,
+		color: String,
+		temporada: String,
+		ocasion: String,
+		notas: String,
+		imageUrl: String?,
+	): CreateItemBody {
+		val resolvedImgUrl = if (imageUrl.isNullOrBlank()) {
+			listOf(DEFAULT_ITEM_IMAGE_URL)
+		} else {
+			listOf(imageUrl)
+		}
+		return CreateItemBody(
+			type = tipo,
+			color = listOf(color),
+			season = listOf(temporada),
+			style = listOf(ocasion),
+			imgUrl = resolvedImgUrl,
+			notes = notas.ifBlank { null },
+		)
+	}
+
+	private suspend fun nextLocalId(): Int {
+		val pendingCreates = localDataSource.getPendingItems()
+			.filter { it.syncStatus == SyncStatus.PENDING_CREATE }
+		val minId = pendingCreates.minOfOrNull { it.id } ?: 0
+		return if (minId < 0) minId - 1 else -1
+	}
 }

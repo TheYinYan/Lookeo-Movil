@@ -20,4 +20,6 @@ interface ItemRepository {
     suspend fun updateItem(item: Item): Result<Item>
 
     suspend fun refresh(): Result<Unit>
+
+	suspend fun syncPending(): Result<Unit>
 }
