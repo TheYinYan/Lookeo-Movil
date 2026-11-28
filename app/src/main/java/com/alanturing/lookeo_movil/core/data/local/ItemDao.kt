@@ -20,9 +20,15 @@ interface ItemDao {
     @Query("SELECT * FROM item WHERE id = :id")
     fun observeById(id: Int): Flow<ItemEntity?>
 
+	@Query("SELECT * FROM item WHERE syncStatus != 'SYNCED'")
+	suspend fun getPending(): List<ItemEntity>
+
     @Query("DELETE FROM item WHERE userId = :userId")
     suspend fun clearByUser(userId: Int)
 
     @Query("DELETE FROM item WHERE id = :id")
     suspend fun deleteById(id: Int)
+
+	@Query("DELETE FROM item WHERE userId = :userId AND syncStatus = 'SYNCED'")
+	suspend fun clearSyncedByUser(userId: Int)
 }

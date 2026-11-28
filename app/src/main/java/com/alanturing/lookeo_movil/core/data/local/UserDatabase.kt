@@ -6,7 +6,7 @@ import androidx.room3.RoomDatabase
 
 @Database(
     entities = [UserEntity::class, ItemEntity::class],
-    version = 2,
+    version = 3,
 )
 @ColumnTypeConverters(DateConverter::class)
 abstract class UserDatabase : RoomDatabase() {

@@ -3,6 +3,7 @@ package com.alanturing.lookeo_movil.core.data.local
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import com.alanturing.lookeo_movil.features.items.data.model.Item
+import com.alanturing.lookeo_movil.features.items.data.model.SyncStatus
 
 @Entity(tableName = "item")
 data class ItemEntity(
@@ -16,6 +17,7 @@ data class ItemEntity(
     val notas: String,
     val imageUrl: String?,
     val createdAt: Long,
+	val syncStatus: String = SyncStatus.SYNCED.name,
 )
 
 fun ItemEntity.toModel(): Item = Item(
@@ -28,6 +30,7 @@ fun ItemEntity.toModel(): Item = Item(
     notas = notas,
     imageUrl = imageUrl,
     createdAt = createdAt,
+	syncStatus = SyncStatus.valueOf(syncStatus),
 )
 
 fun Item.toEntity(): ItemEntity = ItemEntity(
@@ -40,4 +43,5 @@ fun Item.toEntity(): ItemEntity = ItemEntity(
     notas = notas,
     imageUrl = imageUrl,
     createdAt = createdAt,
+	syncStatus = syncStatus.name,
 )

@@ -10,4 +10,5 @@ data class Item(
     val notas: String,
     val imageUrl: String? = null,
     val createdAt: Long = System.currentTimeMillis(),
+	val syncStatus: SyncStatus = SyncStatus.SYNCED,
 )

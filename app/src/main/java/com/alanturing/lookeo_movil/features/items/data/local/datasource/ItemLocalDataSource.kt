@@ -16,4 +16,8 @@ interface ItemLocalDataSource {
     suspend fun clearItemsByUser(userId: Int)
 
     suspend fun deleteItemById(id: Int)
+
+	suspend fun getPendingItems(): List<Item>
+
+	suspend fun clearSyncedItemsByUser(userId: Int)
 }

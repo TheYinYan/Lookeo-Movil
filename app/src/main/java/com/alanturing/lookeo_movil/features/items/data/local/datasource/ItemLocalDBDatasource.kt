@@ -39,4 +39,12 @@ class ItemLocalDBDatasource @Inject constructor(
     override suspend fun deleteItemById(id: Int) {
         dao.deleteById(id)
     }
+
+	override suspend fun getPendingItems(): List<Item> {
+		return dao.getPending().map { it.toModel() }
+	}
+
+	override suspend fun clearSyncedItemsByUser(userId: Int) {
+		dao.clearSyncedByUser(userId)
+	}
 }
